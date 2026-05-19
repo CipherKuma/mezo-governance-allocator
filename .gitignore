@@ -23,3 +23,4 @@ outputs/*.last-message
 
 # Deployment secrets / live output (checked in when produced)
 outputs/mezo-deployment.json
+.vercel
