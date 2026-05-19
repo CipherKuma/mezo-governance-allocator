@@ -1,0 +1,35 @@
+{
+  "name": "mezo-governance-allocator",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 0.0.0.0",
+    "build": "tsc -b && vite build",
+    "test": "vitest run",
+    "test:e2e": "playwright test",
+    "check:rpc": "node scripts/check-rpc.mjs",
+    "contracts:compile": "node scripts/compile-contract.mjs",
+    "deploy:mezo": "node scripts/deploy-mezo.mjs"
+  },
+  "dependencies": {
+    "framer-motion": "^12.23.24",
+    "lucide-react": "^0.553.0",
+    "react": "^19.2.6",
+    "react-dom": "^19.2.6",
+    "viem": "^2.39.3"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.60.0",
+    "@types/react": "^19.2.15",
+    "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react": "^5.1.1",
+    "autoprefixer": "^10.4.22",
+    "postcss": "^8.5.6",
+    "solc": "^0.8.30",
+    "tailwindcss": "^3.4.17",
+    "typescript": "^5.9.3",
+    "vite": "^7.2.4",
+    "vitest": "^4.0.13"
+  }
+}

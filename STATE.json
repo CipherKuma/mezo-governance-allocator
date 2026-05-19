@@ -1,0 +1,13 @@
+{
+  "version": 1,
+  "kind": "hackathon-execution",
+  "hackathon": "Mezo Hackathon",
+  "idea": "MEZO Governance Allocator and Gauge Simulator",
+  "slug": "mezo-hackathon",
+  "runId": "2026-05-21T00-46-20Z",
+  "runDir": "/Users/gabrielantonyxaviour/Documents/hackathons/mezo-hackathon/execution/2026-05-21T00-46-20Z-mezo-governance-allocator-and-gauge-simulator",
+  "status": "running",
+  "agent": "gpt-5.5-builder",
+  "modelPolicy": "execution-code-builds-must-use-gpt-5.5-or-claude-opus-4.7-not-kimi",
+  "output": "/Users/gabrielantonyxaviour/Documents/hackathons/mezo-hackathon/execution/2026-05-21T00-46-20Z-mezo-governance-allocator-and-gauge-simulator/outputs/builder-report.md"
+}
