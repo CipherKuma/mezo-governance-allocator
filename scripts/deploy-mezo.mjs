@@ -47,15 +47,35 @@ const gauges = [
 ];
 
 for (const [id, label, weight] of gauges) {
+  const gas = await publicClient.estimateContractGas({
+    address: contractAddress,
+    abi: artifact.abi,
+    functionName: "registerGauge",
+    args: [stringToHex(id, { size: 32 }), label, weight],
+    account
+  });
   const hash = await walletClient.writeContract({
     address: contractAddress,
     abi: artifact.abi,
     functionName: "registerGauge",
-    args: [stringToHex(id, { size: 32 }), label, weight]
+    args: [stringToHex(id, { size: 32 }), label, weight],
+    gas: gas * 2n
   });
   await publicClient.waitForTransactionReceipt({ hash });
 }
 
+const voteGas = await publicClient.estimateContractGas({
+  address: contractAddress,
+  abi: artifact.abi,
+  functionName: "castVote",
+  args: [
+    1042n,
+    gauges.map(([id]) => stringToHex(id, { size: 32 })),
+    [3000, 1900, 1300, 3800],
+    4200n
+  ],
+  account
+});
 const voteHash = await walletClient.writeContract({
   address: contractAddress,
   abi: artifact.abi,
@@ -65,7 +85,8 @@ const voteHash = await walletClient.writeContract({
     gauges.map(([id]) => stringToHex(id, { size: 32 })),
     [3000, 1900, 1300, 3800],
     4200n
-  ]
+  ],
+  gas: voteGas * 2n
 });
 const voteReceipt = await publicClient.waitForTransactionReceipt({ hash: voteHash });
 
