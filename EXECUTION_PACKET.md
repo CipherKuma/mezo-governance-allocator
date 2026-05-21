@@ -41,25 +41,21 @@ Mezo Allocator is a governance allocator and gauge simulator for the Mezo ecosys
 
 ## Links
 
-- Repo: `https://github.com/gabrielantonyxaviour/mezo-governance-allocator` (live, pushed 2026-05-24)
+- Repo: `https://github.com/CipherKuma/mezo-governance-allocator` (live, pushed 2026-05-25)
 - Demo: `https://mezo-governance-allocator.vercel.app` (live, Vercel production 2026-05-24)
 - Video: pending (Gabriel must record).
-- Contract: `contracts/GovernanceAllocator.sol` (deployed to Mezo testnet: BLOCKED — deployer wallet has 0 balance; see testnet deploy blocker below)
+- Contract: `contracts/GovernanceAllocator.sol` (deployed to Mezo testnet at `0x6758965df82863e05583fc975a95dfd0b391f446`)
 - Mezo docs: `https://mezo.org/docs/developers/getting-started`
 - Mezo Earn docs: `https://mezo.org/docs/users/mezo-earn/overview/`
 
-## Testnet Deploy Blocker
+## Testnet Deployment (COMPLETE)
 
-Deployer address: `0x86CA136dc8B2Ac6B10143Ed23AC361FCBbd6bFCa` (from vault `DEPLOYER_PRIVATE_KEY`)
-Mezo testnet balance: **0 BTC** (checked 2026-05-24)
-Faucet: `https://faucet.test.mezo.org` — requires Cloudflare Turnstile CAPTCHA (agent-browser session rendered blank; automated bypass not possible)
-
-**Gabriel next step:** Fund `0x86CA136dc8B2Ac6B10143Ed23AC361FCBbd6bFCa` from faucet, then run:
-```bash
-export MEZO_DEPLOYER_PRIVATE_KEY=$(grep 'DEPLOYER_PRIVATE_KEY=' ~/.claude/vault/.env.master | cut -d= -f2-)
-npm run contracts:compile && npm run deploy:mezo
-```
-Output will write to `outputs/mezo-deployment.json` with contract address + vote tx hash.
+- Contract: `0x6758965df82863e05583fc975a95dfd0b391f446`
+- Deploy tx: `0x6a9fe51b0e10712867624495a523f64244cf228d082e80a19ffcc5aeae4920b8`
+- Vote tx: `0x57640d16ec5c7ae8b6d51dfcad3bf6d5e785bf28ba45f3c96df1c65a7398de40`
+- Explorer: https://explorer.test.mezo.org/tx/0x57640d16ec5c7ae8b6d51dfcad3bf6d5e785bf28ba45f3c96df1c65a7398de40
+- Deployer: `0x86CA136dc8B2Ac6B10143Ed23AC361FCBbd6bFCa`
+- 4 gauges registered, sample vote cast at block 13257687.
 
 ## Final Checklist
 
@@ -72,6 +68,6 @@ Output will write to `outputs/mezo-deployment.json` with contract address + vote
 - [x] Local visual QA at 375/768/1440 (outputs/visual-qa/).
 - [x] Public repo created: `gabrielantonyxaviour/mezo-governance-allocator`.
 - [x] Vercel demo deployed: `https://mezo-governance-allocator.vercel.app`.
-- [ ] Mezo testnet deploy: blocked on 0 wallet balance — fund faucet then `npm run deploy:mezo`.
+- [x] Mezo testnet deploy: `0x6758965df82863e05583fc975a95dfd0b391f446` (2026-05-25).
 - [ ] Video recording (Gabriel must record screen demo).
 - [ ] Submission portal final submit (Gabriel must do this — never auto-submit).

@@ -14,12 +14,13 @@ Use `agent-browser` with the assigned submitter's Chrome profile when the repo m
 
 Do not use `gh repo create` unless the authenticated CLI owner is proven to match the assigned submitter.
 
-## Current Status — DONE (2026-05-24)
+## Current Status — DONE (2026-05-25, identity override)
 
-- Repo created: `https://github.com/gabrielantonyxaviour/mezo-governance-allocator`
+- **Primary repo (CipherKuma):** `https://github.com/CipherKuma/mezo-governance-allocator`
+- Legacy repo (Gabriel): `https://github.com/gabrielantonyxaviour/mezo-governance-allocator` (kept, not primary)
 - First commit pushed: SHA `585ca85` — 56 files, full source + contract + tests
 - Vercel deployed: `https://mezo-governance-allocator.vercel.app` (production, Vite build 344kB)
-- Remote added: `git remote add origin https://github.com/gabrielantonyxaviour/mezo-governance-allocator.git`
+- Remotes: `origin` → gabrielantonyxaviour, `ck` → CipherKuma
 
 ## Steps Completed (2026-05-24, autonomous session)
 

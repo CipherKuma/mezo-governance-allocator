@@ -58,8 +58,8 @@ The script writes deployment proof to `outputs/mezo-deployment.json`.
 - Mezo testnet RPC verified: chain id `31611` / `0x7b7b`.
 - Web3 auth gate implemented through an injected EIP-1193 browser wallet: account request, Mezo chain check/switch attempt, and signed readiness message.
 - Current browser proof shows the no-wallet blocked state, not a verified wallet signature.
-- Testnet deployment is blocked until a funded Mezo testnet deployer is provided.
-- GitHub repo creation and submission portal work are blocked until Gabriel assigns the primary submitter profile in `TEAM.md`.
+- GovernanceAllocator deployed to Mezo testnet at `0x6758965df82863e05583fc975a95dfd0b391f446`.
+- Sample vote cast on-chain: [explorer](https://explorer.test.mezo.org/tx/0x57640d16ec5c7ae8b6d51dfcad3bf6d5e785bf28ba45f3c96df1c65a7398de40).
 - Removed unused Passport/RainbowKit/Wagmi packages from the runnable demo because they were not active in the UI and carried production audit findings. The active wallet path is direct injected-wallet EIP-1193 plus `viem` for deployment/RPC scripting.
 - `npm audit --omit=dev` is clean. Full `npm audit` still reports 2 low dev-only vulnerabilities through `solc -> tmp`; the available fix would force `solc@0.5.0`, which is not safe for this Solidity 0.8 contract.
 
