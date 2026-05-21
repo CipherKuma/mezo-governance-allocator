@@ -5,10 +5,14 @@ import {
   calculateBoostMultiplier,
   calculateImpact,
   normalizeWeights,
-  updateGaugeWeight
+  updateGaugeWeight,
 } from "../src/lib/allocator";
 import { initialGauges, initialPosition } from "../src/lib/fixtures";
-import { buildWalletAuthMessage, requestMezoWalletAuth, type EthereumProvider } from "../src/lib/wallet-auth";
+import {
+  buildWalletAuthMessage,
+  requestMezoWalletAuth,
+  type EthereumProvider,
+} from "../src/lib/wallet-auth";
 
 describe("allocator math", () => {
   it("linearly decays veBTC base power by remaining lock days", () => {
@@ -25,20 +29,36 @@ describe("allocator math", () => {
 
   it("keeps proposed weights normalized to 10000 bps", () => {
     const updated = updateGaugeWeight(initialGauges, "ecosystem-grants", 3_800);
-    const total = updated.reduce((sum, gauge) => sum + gauge.proposedWeightBps, 0);
+    const total = updated.reduce(
+      (sum, gauge) => sum + gauge.proposedWeightBps,
+      0,
+    );
     expect(total).toBe(10_000);
-    expect(updated.find((gauge) => gauge.id === "ecosystem-grants")?.proposedWeightBps).toBe(3_800);
+    expect(
+      updated.find((gauge) => gauge.id === "ecosystem-grants")
+        ?.proposedWeightBps,
+    ).toBe(3_800);
   });
 
   it("normalizes arbitrary bps values with rounding correction", () => {
-    const normalized = normalizeWeights(initialGauges.map((gauge) => ({ ...gauge, proposedWeightBps: 1 })));
-    expect(normalized.reduce((sum, gauge) => sum + gauge.proposedWeightBps, 0)).toBe(10_000);
+    const normalized = normalizeWeights(
+      initialGauges.map((gauge) => ({ ...gauge, proposedWeightBps: 1 })),
+    );
+    expect(
+      normalized.reduce((sum, gauge) => sum + gauge.proposedWeightBps, 0),
+    ).toBe(10_000);
   });
 
   it("recovers zeroed weights without producing NaN allocations", () => {
-    const normalized = normalizeWeights(initialGauges.map((gauge) => ({ ...gauge, proposedWeightBps: 0 })));
-    expect(normalized.reduce((sum, gauge) => sum + gauge.proposedWeightBps, 0)).toBe(10_000);
-    expect(normalized.every((gauge) => Number.isFinite(gauge.proposedWeightBps))).toBe(true);
+    const normalized = normalizeWeights(
+      initialGauges.map((gauge) => ({ ...gauge, proposedWeightBps: 0 })),
+    );
+    expect(
+      normalized.reduce((sum, gauge) => sum + gauge.proposedWeightBps, 0),
+    ).toBe(10_000);
+    expect(
+      normalized.every((gauge) => Number.isFinite(gauge.proposedWeightBps)),
+    ).toBe(true);
   });
 
   it("builds an honest fixture receipt from calculated leading gauge", () => {
@@ -59,7 +79,7 @@ describe("allocator math", () => {
 describe("wallet auth helper", () => {
   it("returns a blocked state when no injected wallet is available", async () => {
     await expect(requestMezoWalletAuth(undefined)).resolves.toMatchObject({
-      status: "wallet-unavailable"
+      status: "wallet-unavailable",
     });
   });
 
@@ -78,7 +98,7 @@ describe("wallet auth helper", () => {
           return "0xsigned-readiness-proof";
         }
         throw new Error(`Unexpected method ${method}`);
-      }
+      },
     };
 
     const auth = await requestMezoWalletAuth(provider);
@@ -86,7 +106,14 @@ describe("wallet auth helper", () => {
     expect(auth.account).toBe("0x1111111111111111111111111111111111111111");
     expect(auth.chainId).toBe(31_611);
     expect(auth.signature).toBe("0xsigned-readiness-proof");
-    expect(auth.message).toBe(buildWalletAuthMessage("0x1111111111111111111111111111111111111111"));
-    expect(calls).toEqual(["eth_requestAccounts", "eth_chainId", "eth_chainId", "personal_sign"]);
+    expect(auth.message).toBe(
+      buildWalletAuthMessage("0x1111111111111111111111111111111111111111"),
+    );
+    expect(calls).toEqual([
+      "eth_requestAccounts",
+      "eth_chainId",
+      "eth_chainId",
+      "personal_sign",
+    ]);
   });
 });

@@ -28,7 +28,15 @@ export function ImpactStrip({ impact }: Props) {
   );
 }
 
-function ImpactCard({ icon, label, value }: { icon: ReactNode; label: string; value: string }) {
+function ImpactCard({
+  icon,
+  label,
+  value,
+}: {
+  icon: ReactNode;
+  label: string;
+  value: string;
+}) {
   return (
     <div className="rounded-lg border border-white/10 bg-white/[0.035] p-4">
       <div className="mb-6 flex items-center justify-between text-white/45">

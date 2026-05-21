@@ -50,7 +50,10 @@ export function clamp(value: number, min: number, max: number) {
   return Math.min(Math.max(value, min), max);
 }
 
-export function calculateBaseVotingPower(lockedBtc: number, daysRemaining: number) {
+export function calculateBaseVotingPower(
+  lockedBtc: number,
+  daysRemaining: number,
+) {
   const timeWeight = clamp(daysRemaining / MAX_LOCK_DAYS, 0, 1);
   return round(lockedBtc * timeWeight, 4);
 }
@@ -61,17 +64,24 @@ export function calculateBoostMultiplier(mezoBoost: number, lockedBtc: number) {
   }
 
   const mezoPerBtc = mezoBoost / lockedBtc;
-  const multiplier = 1 + clamp(mezoPerBtc / 5_000, 0, 1) * (MAX_BOOST_MULTIPLIER - 1);
+  const multiplier =
+    1 + clamp(mezoPerBtc / 5_000, 0, 1) * (MAX_BOOST_MULTIPLIER - 1);
   return round(multiplier, 2);
 }
 
 export function calculateEffectivePower(position: Position) {
-  const baseVotingPower = calculateBaseVotingPower(position.lockedBtc, position.daysRemaining);
-  const boostMultiplier = calculateBoostMultiplier(position.mezoBoost, position.lockedBtc);
+  const baseVotingPower = calculateBaseVotingPower(
+    position.lockedBtc,
+    position.daysRemaining,
+  );
+  const boostMultiplier = calculateBoostMultiplier(
+    position.mezoBoost,
+    position.lockedBtc,
+  );
   return {
     baseVotingPower,
     boostMultiplier,
-    effectiveVotingPower: round(baseVotingPower * boostMultiplier, 4)
+    effectiveVotingPower: round(baseVotingPower * boostMultiplier, 4),
   };
 }
 
@@ -90,22 +100,29 @@ export function normalizeWeights(gauges: Gauge[]) {
     const diff = 10_000 - baseWeight * gauges.length;
     return gauges.map((gauge, index) => ({
       ...gauge,
-      proposedWeightBps: index === 0 ? baseWeight + diff : baseWeight
+      proposedWeightBps: index === 0 ? baseWeight + diff : baseWeight,
     }));
   }
 
   const scaled = gauges.map((gauge) => ({
     ...gauge,
-    proposedWeightBps: Math.round((gauge.proposedWeightBps / total) * 10_000)
+    proposedWeightBps: Math.round((gauge.proposedWeightBps / total) * 10_000),
   }));
 
-  const diff = 10_000 - scaled.reduce((sum, gauge) => sum + gauge.proposedWeightBps, 0);
+  const diff =
+    10_000 - scaled.reduce((sum, gauge) => sum + gauge.proposedWeightBps, 0);
   return scaled.map((gauge, index) =>
-    index === 0 ? { ...gauge, proposedWeightBps: gauge.proposedWeightBps + diff } : gauge
+    index === 0
+      ? { ...gauge, proposedWeightBps: gauge.proposedWeightBps + diff }
+      : gauge,
   );
 }
 
-export function updateGaugeWeight(gauges: Gauge[], gaugeId: string, nextWeightBps: number) {
+export function updateGaugeWeight(
+  gauges: Gauge[],
+  gaugeId: string,
+  nextWeightBps: number,
+) {
   const clamped = clamp(Math.round(nextWeightBps), 0, 10_000);
   const target = gauges.find((gauge) => gauge.id === gaugeId);
   if (!target) {
@@ -122,25 +139,41 @@ export function updateGaugeWeight(gauges: Gauge[], gaugeId: string, nextWeightBp
       return { ...gauge, proposedWeightBps: clamped };
     }
 
-    const share = otherTotal > 0 ? gauge.proposedWeightBps / otherTotal : 1 / (gauges.length - 1);
+    const share =
+      otherTotal > 0
+        ? gauge.proposedWeightBps / otherTotal
+        : 1 / (gauges.length - 1);
     return { ...gauge, proposedWeightBps: Math.round(remaining * share) };
   });
 
   return normalizeWeights(next);
 }
 
-export function calculateImpact(gauges: Gauge[], position: Position): AllocationImpact {
+export function calculateImpact(
+  gauges: Gauge[],
+  position: Position,
+): AllocationImpact {
   const normalized = normalizeWeights(gauges);
   const power = calculateEffectivePower(position);
-  const leading = [...normalized].sort((a, b) => b.proposedWeightBps - a.proposedWeightBps)[0];
-  const leadingEmissionDelta = ((leading.proposedWeightBps - leading.currentWeightBps) / 10_000) * BASE_EMISSIONS;
+  const leading = [...normalized].sort(
+    (a, b) => b.proposedWeightBps - a.proposedWeightBps,
+  )[0];
+  const leadingEmissionDelta =
+    ((leading.proposedWeightBps - leading.currentWeightBps) / 10_000) *
+    BASE_EMISSIONS;
   const musdFlowDelta = normalized.reduce(
-    (sum, gauge) => sum + ((gauge.proposedWeightBps - gauge.currentWeightBps) / 10_000) * gauge.musdFlow,
-    0
+    (sum, gauge) =>
+      sum +
+      ((gauge.proposedWeightBps - gauge.currentWeightBps) / 10_000) *
+        gauge.musdFlow,
+    0,
   );
   const btcDepthDelta = normalized.reduce(
-    (sum, gauge) => sum + ((gauge.proposedWeightBps - gauge.currentWeightBps) / 10_000) * gauge.btcDepth,
-    0
+    (sum, gauge) =>
+      sum +
+      ((gauge.proposedWeightBps - gauge.currentWeightBps) / 10_000) *
+        gauge.btcDepth,
+    0,
   );
 
   return {
@@ -149,11 +182,14 @@ export function calculateImpact(gauges: Gauge[], position: Position): Allocation
     leadingWeightBps: leading.proposedWeightBps,
     totalEmissionShare: round(leadingEmissionDelta * power.boostMultiplier, 2),
     musdFlowDelta: round(musdFlowDelta * power.boostMultiplier, 2),
-    btcDepthDelta: round(btcDepthDelta * power.boostMultiplier, 4)
+    btcDepthDelta: round(btcDepthDelta * power.boostMultiplier, 4),
   };
 }
 
-export function buildFixtureReceipt(gauges: Gauge[], position: Position): VoteReceipt {
+export function buildFixtureReceipt(
+  gauges: Gauge[],
+  position: Position,
+): VoteReceipt {
   const impact = calculateImpact(gauges, position);
   const hashSeed = `${position.tokenId}:${impact.leadingGaugeId}:${impact.leadingWeightBps}:${position.mezoBoost}`;
   return {
@@ -166,8 +202,33 @@ export function buildFixtureReceipt(gauges: Gauge[], position: Position): VoteRe
     leadingWeightBps: impact.leadingWeightBps,
     emissionsDelta: impact.totalEmissionShare,
     musdImpact: impact.musdFlowDelta,
-    timestamp: new Date().toISOString()
+    timestamp: new Date().toISOString(),
   };
+}
+
+export const VEMEZO_MAX_LOCK_DAYS = 1456;
+
+export function calculateVeMezoWeight(
+  lockedMezo: number,
+  daysRemaining: number,
+): number {
+  if (lockedMezo <= 0 || daysRemaining <= 0) return 0;
+  const clamped = Math.min(daysRemaining, VEMEZO_MAX_LOCK_DAYS);
+  return lockedMezo * (clamped / VEMEZO_MAX_LOCK_DAYS);
+}
+
+export function calculateMusdDistribution(
+  treasuryBalance: number,
+  gaugeVotes: { gaugeId: string; totalVotes: number }[],
+): { gaugeId: string; musdAmount: number }[] {
+  const totalVotes = gaugeVotes.reduce((sum, g) => sum + g.totalVotes, 0);
+  if (totalVotes === 0 || treasuryBalance <= 0) {
+    return gaugeVotes.map((g) => ({ gaugeId: g.gaugeId, musdAmount: 0 }));
+  }
+  return gaugeVotes.map((g) => ({
+    gaugeId: g.gaugeId,
+    musdAmount: (treasuryBalance * g.totalVotes) / totalVotes,
+  }));
 }
 
 export function round(value: number, precision = 2) {

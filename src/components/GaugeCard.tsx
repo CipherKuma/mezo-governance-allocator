@@ -10,7 +10,7 @@ const iconByKind = {
   staking: Waves,
   validator: ShieldCheck,
   ecosystem: Sprout,
-  boost: Landmark
+  boost: Landmark,
 };
 
 export function GaugeCard({ gauge, onWeightChange }: Props) {
@@ -27,7 +27,9 @@ export function GaugeCard({ gauge, onWeightChange }: Props) {
           </span>
           <div>
             <h3 className="text-sm font-semibold text-white">{gauge.label}</h3>
-            <p className="text-xs capitalize text-white/42">{gauge.kind} gauge</p>
+            <p className="text-xs capitalize text-white/42">
+              {gauge.kind} gauge
+            </p>
           </div>
         </div>
         <span className={delta >= 0 ? "text-xs text-musd" : "text-xs text-btc"}>
@@ -37,7 +39,10 @@ export function GaugeCard({ gauge, onWeightChange }: Props) {
       </div>
 
       <div className="mb-3 h-2 overflow-hidden rounded-full bg-white/10">
-        <div className="h-full rounded-full bg-musd transition-all duration-500" style={{ width }} />
+        <div
+          className="h-full rounded-full bg-musd transition-all duration-500"
+          style={{ width }}
+        />
       </div>
 
       <input
@@ -46,13 +51,18 @@ export function GaugeCard({ gauge, onWeightChange }: Props) {
         max={7000}
         step={100}
         value={gauge.proposedWeightBps}
-        onChange={(event) => onWeightChange(gauge.id, Number(event.target.value))}
+        onChange={(event) =>
+          onWeightChange(gauge.id, Number(event.target.value))
+        }
         className="range-control"
         aria-label={`${gauge.label} weight`}
       />
 
       <dl className="mt-4 grid grid-cols-3 gap-2 text-xs">
-        <Metric label="Weight" value={`${(gauge.proposedWeightBps / 100).toFixed(0)}%`} />
+        <Metric
+          label="Weight"
+          value={`${(gauge.proposedWeightBps / 100).toFixed(0)}%`}
+        />
         <Metric label="Fee APR" value={`${gauge.feeApr}%`} />
         <Metric label="BTC depth" value={`${gauge.btcDepth}`} />
       </dl>

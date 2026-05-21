@@ -19,7 +19,7 @@ export function AllocatorWorkbench({
   hasAllocator,
   onGaugeWeightChange,
   onPositionChange,
-  onSimulate
+  onSimulate,
 }: Props) {
   return (
     <div className="rounded-lg border border-white/10 bg-[#0d0f0b]/90 p-3 shadow-glass sm:p-4">
@@ -30,7 +30,8 @@ export function AllocatorWorkbench({
             Allocation console
           </div>
           <p className="mt-1 text-xs text-white/48">
-            Vote weights must total 10,000 bps. The receipt label shows whether proof is fixture or live testnet.
+            Vote weights must total 10,000 bps. The receipt label shows whether
+            proof is fixture or live testnet.
           </p>
         </div>
         <button
@@ -45,7 +46,9 @@ export function AllocatorWorkbench({
         <div className="rounded-lg border border-white/10 bg-black/35 p-4">
           <div className="mb-4 flex items-center justify-between">
             <span className="text-sm font-semibold text-white">Position</span>
-            <span className="rounded-full bg-musd/12 px-3 py-1 text-xs text-musd">veBTC #{position.tokenId}</span>
+            <span className="rounded-full bg-musd/12 px-3 py-1 text-xs text-musd">
+              veBTC #{position.tokenId}
+            </span>
           </div>
 
           <Control
@@ -55,7 +58,9 @@ export function AllocatorWorkbench({
             max={5}
             step={0.1}
             suffix="BTC"
-            onChange={(lockedBtc) => onPositionChange({ ...position, lockedBtc })}
+            onChange={(lockedBtc) =>
+              onPositionChange({ ...position, lockedBtc })
+            }
           />
           <Control
             label="Days remaining"
@@ -64,7 +69,9 @@ export function AllocatorWorkbench({
             max={28}
             step={1}
             suffix="days"
-            onChange={(daysRemaining) => onPositionChange({ ...position, daysRemaining })}
+            onChange={(daysRemaining) =>
+              onPositionChange({ ...position, daysRemaining })
+            }
           />
           <Control
             label="MEZO boost"
@@ -73,7 +80,9 @@ export function AllocatorWorkbench({
             max={10_000}
             step={100}
             suffix="MEZO"
-            onChange={(mezoBoost) => onPositionChange({ ...position, mezoBoost })}
+            onChange={(mezoBoost) =>
+              onPositionChange({ ...position, mezoBoost })
+            }
           />
 
           <div className="mt-5 rounded-lg border border-white/10 bg-white/[0.035] p-4">
@@ -81,7 +90,9 @@ export function AllocatorWorkbench({
               <span>Leading gauge</span>
               <span>{impact.leadingWeightBps} bps</span>
             </div>
-            <div className="mt-2 text-xl font-semibold text-white">{impact.leadingGaugeId}</div>
+            <div className="mt-2 text-xl font-semibold text-white">
+              {impact.leadingGaugeId}
+            </div>
             <div className="mt-4 text-xs text-white/48">
               {hasAllocator
                 ? "Allocator address configured; browser demo still waits for a funded wallet transaction."
@@ -92,7 +103,11 @@ export function AllocatorWorkbench({
 
         <div className="grid gap-3 sm:grid-cols-2">
           {gauges.map((gauge) => (
-            <GaugeCard key={gauge.id} gauge={gauge} onWeightChange={onGaugeWeightChange} />
+            <GaugeCard
+              key={gauge.id}
+              gauge={gauge}
+              onWeightChange={onGaugeWeightChange}
+            />
           ))}
         </div>
       </div>
@@ -107,7 +122,7 @@ function Control({
   max,
   step,
   suffix,
-  onChange
+  onChange,
 }: {
   label: string;
   value: number;
@@ -121,7 +136,9 @@ function Control({
     <label className="mb-4 block">
       <div className="mb-2 flex items-center justify-between text-xs text-white/55">
         <span>{label}</span>
-        <span className="text-white">{value.toLocaleString()} {suffix}</span>
+        <span className="text-white">
+          {value.toLocaleString()} {suffix}
+        </span>
       </div>
       <input
         type="range"

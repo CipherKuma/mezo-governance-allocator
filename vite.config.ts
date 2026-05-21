@@ -6,6 +6,6 @@ export default defineConfig({
   test: {
     include: ["test/**/*.test.ts"],
     environment: "node",
-    globals: true
-  }
+    globals: true,
+  },
 });

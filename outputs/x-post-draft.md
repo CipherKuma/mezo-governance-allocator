@@ -1,20 +1,23 @@
 # X Post Draft — Mezo Governance Allocator
 
 **DO NOT POST — Gabriel must review and approve before posting.**
-**Drafted by:** autonomous session 2026-05-24
+**Voice:** Cipher Kuma (DeFi/governance-focused)
+**Account:** Post from Cipher Kuma's X account
+**Drafted:** 2026-05-25
 
 ---
 
-## Option A — Technical angle (recommended)
+## Option A — Technical (recommended)
 
-> Built a governance allocator for @MezoNetwork 🏗️
+> Built a governance allocator for @MezoNetwork
 >
-> Lock BTC → get veBTC voting power. Add MEZO boost → amplify your gauge weight. Cast a vote → redirect Bitcoin-backed emissions across gauges.
+> Lock BTC -> get veBTC voting power. Add MEZO boost -> amplify your gauge weight. Cast a vote -> redirect Bitcoin-backed emissions across ecosystem gauges.
 >
-> The contract emits `AllocationUpdated`. The UI shows the receipt honestly: fixture now, live testnet after wallet funding.
+> Contract deployed on Mezo testnet, emitting AllocationUpdated on every vote.
 >
 > Demo: https://mezo-governance-allocator.vercel.app
-> Repo: https://github.com/gabrielantonyxaviour/mezo-governance-allocator
+> Code: https://github.com/CipherKuma/mezo-governance-allocator
+> Tx: https://explorer.test.mezo.org/tx/0x57640d16ec5c7ae8b6d51dfcad3bf6d5e785bf28ba45f3c96df1c65a7398de40
 >
 > #Mezo #BitcoinDeFi #BuildOnMezo
 
@@ -22,11 +25,11 @@
 
 ## Option B — Governance utility angle
 
-> Most teams build payments on @MezoNetwork. We built the governance dial instead.
+> Most teams build payments on @MezoNetwork. We built the governance dial.
 >
-> Mezo Allocator: veBTC base power + MEZO boost multiplier → gauge votes → emission direction. BTC-backed capital flows where the protocol governs, not where defaults point it.
+> Mezo Allocator: veBTC base power + MEZO boost multiplier -> gauge votes -> emission direction. BTC-backed capital flows where the protocol governs, not where defaults point it.
 >
-> React workbench + deployable Solidity contract.
+> Live on Mezo testnet with 4 gauges and on-chain vote proof.
 >
 > https://mezo-governance-allocator.vercel.app
 >
@@ -36,20 +39,20 @@
 
 ## Option C — Minimal
 
-> Built a gauge voting workbench for @MezoNetwork as part of their hackathon.
+> Gauge voting workbench for @MezoNetwork — built for their hackathon.
 >
-> veBTC + MEZO boost → allocate Bitcoin-backed capital across gauges. Deployable Solidity allocator + React control room.
+> veBTC + MEZO boost -> allocate Bitcoin-backed capital across gauges. Solidity allocator deployed on Mezo testnet + React control room.
 >
-> Demo live: https://mezo-governance-allocator.vercel.app
-> Code: https://github.com/gabrielantonyxaviour/mezo-governance-allocator
+> Demo: https://mezo-governance-allocator.vercel.app
+> Repo: https://github.com/CipherKuma/mezo-governance-allocator
 >
 > #MezoHackathon #MEZO
 
 ---
 
-## Notes for Gabriel
+## Notes
 
-- Paste after the testnet deploy is done so you can update with the contract address + explorer tx link
-- Tag `@MezoNetwork` (confirm their X handle is correct)
-- Add screenshot of the workbench UI for visual engagement
-- Option A is recommended — technical but accessible, shows the receipt receipt mechanic
+- Post from Cipher Kuma's X account
+- Tag `@MezoNetwork`
+- Add a screenshot of the workbench UI
+- Option A is recommended — includes the on-chain proof link

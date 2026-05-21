@@ -30,15 +30,19 @@ export function getInjectedEthereumProvider(): EthereumProvider | undefined {
   return (window as typeof window & { ethereum?: EthereumProvider }).ethereum;
 }
 
-export function getInitialWalletAuthState(provider = getInjectedEthereumProvider()): WalletAuthState {
+export function getInitialWalletAuthState(
+  provider = getInjectedEthereumProvider(),
+): WalletAuthState {
   return provider
     ? {
         status: "ready",
-        error: "Browser wallet detected. Connect, verify Mezo testnet, and sign to unlock live transaction proof."
+        error:
+          "Browser wallet detected. Connect, verify Mezo testnet, and sign to unlock live transaction proof.",
       }
     : {
         status: "wallet-unavailable",
-        error: "No injected browser wallet detected. Install or unlock a wallet to run live web3 auth."
+        error:
+          "No injected browser wallet detected. Install or unlock a wallet to run live web3 auth.",
       };
 }
 
@@ -47,11 +51,13 @@ export function buildWalletAuthMessage(account: string) {
     "MEZO Governance Allocator readiness auth",
     `Account: ${account}`,
     `Chain: ${MEZO_NETWORK.id}`,
-    "Purpose: verify wallet control before live gauge allocation testing."
+    "Purpose: verify wallet control before live gauge allocation testing.",
   ].join("\n");
 }
 
-export async function requestMezoWalletAuth(provider = getInjectedEthereumProvider()): Promise<WalletAuthState> {
+export async function requestMezoWalletAuth(
+  provider = getInjectedEthereumProvider(),
+): Promise<WalletAuthState> {
   if (!provider) {
     return getInitialWalletAuthState(undefined);
   }
@@ -61,7 +67,7 @@ export async function requestMezoWalletAuth(provider = getInjectedEthereumProvid
   if (!account) {
     return {
       status: "failed",
-      error: "Wallet returned no account."
+      error: "Wallet returned no account.",
     };
   }
 
@@ -73,7 +79,7 @@ export async function requestMezoWalletAuth(provider = getInjectedEthereumProvid
         status: "wrong-chain",
         account,
         chainId,
-        error: `Wallet is on chain ${chainId ?? "unknown"}; Mezo testnet ${MEZO_NETWORK.id} is required.`
+        error: `Wallet is on chain ${chainId ?? "unknown"}; Mezo testnet ${MEZO_NETWORK.id} is required.`,
       };
     }
   }
@@ -82,7 +88,7 @@ export async function requestMezoWalletAuth(provider = getInjectedEthereumProvid
   const message = buildWalletAuthMessage(account);
   const signature = await provider.request({
     method: "personal_sign",
-    params: [message, account]
+    params: [message, account],
   });
 
   if (typeof signature !== "string" || signature.length < 10) {
@@ -90,7 +96,7 @@ export async function requestMezoWalletAuth(provider = getInjectedEthereumProvid
       status: "failed",
       account,
       chainId: verifiedChainId,
-      error: "Wallet did not return a usable signature."
+      error: "Wallet did not return a usable signature.",
     };
   }
 
@@ -99,7 +105,7 @@ export async function requestMezoWalletAuth(provider = getInjectedEthereumProvid
     account,
     chainId: verifiedChainId,
     signature,
-    message
+    message,
   };
 }
 
@@ -109,7 +115,9 @@ function parseFirstAccount(value: unknown) {
   }
 
   const [first] = value;
-  return typeof first === "string" && first.startsWith("0x") ? first : undefined;
+  return typeof first === "string" && first.startsWith("0x")
+    ? first
+    : undefined;
 }
 
 async function getProviderChainId(provider: EthereumProvider) {
@@ -127,7 +135,7 @@ async function trySwitchToMezo(provider: EthereumProvider) {
   try {
     await provider.request({
       method: "wallet_switchEthereumChain",
-      params: [{ chainId: chainHex }]
+      params: [{ chainId: chainHex }],
     });
     return true;
   } catch {
@@ -140,9 +148,9 @@ async function trySwitchToMezo(provider: EthereumProvider) {
             chainName: MEZO_NETWORK.name,
             nativeCurrency: MEZO_NETWORK.nativeCurrency,
             rpcUrls: [MEZO_NETWORK.rpcUrl],
-            blockExplorerUrls: [MEZO_NETWORK.explorerUrl]
-          }
-        ]
+            blockExplorerUrls: [MEZO_NETWORK.explorerUrl],
+          },
+        ],
       });
       return true;
     } catch {
