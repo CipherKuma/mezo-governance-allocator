@@ -47,9 +47,12 @@ async function write(address, abi, fn, args) {
     address, abi, functionName: fn, args, account,
   }).catch(() => 500_000n);
   const hash = await walletClient.writeContract({
-    address, abi, functionName: fn, args, gas: gas * 2n,
+    address, abi, functionName: fn, args, gas: gas * 3n,
   });
-  await publicClient.waitForTransactionReceipt({ hash });
+  const receipt = await publicClient.waitForTransactionReceipt({ hash });
+  if (receipt.status === "reverted") {
+    throw new Error(`Transaction reverted: ${fn}(${JSON.stringify(args)}) tx=${hash}`);
+  }
   return hash;
 }
 
