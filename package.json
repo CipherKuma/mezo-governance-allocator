@@ -16,7 +16,8 @@
     "e2e:verify": "node scripts/e2e-verify.mjs",
     "video:studio": "remotion studio remotion/index.ts",
     "video:still": "remotion still remotion/index.ts BorealisPitch out/borealis-pitch-frame.png --frame=240 --overwrite",
-    "video:render": "remotion render remotion/index.ts BorealisPitch out/borealis-pitch-placeholder.mp4 --concurrency=1 --overwrite"
+    "video:render": "remotion render remotion/index.ts BorealisPitch out/borealis-pitch-ai-inserts.mp4 --concurrency=1 --overwrite",
+    "video:render:placeholder": "remotion render remotion/index.ts BorealisPitch out/borealis-pitch-placeholder.mp4 --concurrency=1 --overwrite"
   },
   "dependencies": {
     "@mezo-org/passport": "^0.17.2",
@@ -29,7 +30,7 @@
     "react": "^19.2.6",
     "react-dom": "^19.2.6",
     "viem": "^2.39.3",
-    "wagmi": "^3.6.15"
+    "wagmi": "^2.19.5"
   },
   "devDependencies": {
     "@playwright/test": "^1.60.0",
