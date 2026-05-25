@@ -41,7 +41,7 @@ Mezo Allocator is a governance allocator and gauge simulator for the Mezo ecosys
 
 ## Links
 
-- Repo: `https://github.com/CipherKuma/mezo-governance-allocator` (live, pushed 2026-05-25)
+- Repo: `https://github.com/CipherKuma/borealis` (live, pushed 2026-05-25)
 - Demo: `https://mezo-governance-allocator.vercel.app` (live, Vercel production 2026-05-24)
 - Video: pending (Gabriel must record).
 - Contract: `contracts/GovernanceAllocator.sol` (deployed to Mezo testnet at `0x6758965df82863e05583fc975a95dfd0b391f446`)

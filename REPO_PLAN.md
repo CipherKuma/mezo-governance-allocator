@@ -16,7 +16,7 @@ Do not use `gh repo create` unless the authenticated CLI owner is proven to matc
 
 ## Current Status — DONE (2026-05-25, identity override)
 
-- **Primary repo (CipherKuma):** `https://github.com/CipherKuma/mezo-governance-allocator`
+- **Primary repo (CipherKuma):** `https://github.com/CipherKuma/borealis`
 - Legacy repo (Gabriel): `https://github.com/gabrielantonyxaviour/mezo-governance-allocator` (kept, not primary)
 - First commit pushed: SHA `585ca85` — 56 files, full source + contract + tests
 - Vercel deployed: `https://mezo-governance-allocator.vercel.app` (production, Vite build 344kB)

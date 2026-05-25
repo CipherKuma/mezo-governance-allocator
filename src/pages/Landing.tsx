@@ -31,8 +31,13 @@ export function Landing() {
       <div className="absolute inset-0 bg-gradient-to-t from-[hsl(0,0%,5%)] via-transparent to-transparent" />
 
       <nav className="fixed left-0 right-0 top-0 z-50 flex items-center justify-between px-6 py-5 lg:px-12">
-        <span className="text-lg font-semibold tracking-tight text-white">
-          MEZO ALLOCATOR
+        <span className="flex items-center gap-2.5 text-lg font-semibold tracking-tight text-white">
+          <img
+            src="/borealis.png"
+            alt="Borealis"
+            className="h-8 w-8 rounded-md"
+          />
+          BOREALIS
         </span>
         <div className="flex items-center gap-3">
           <span className="hidden items-center gap-1.5 rounded-full border border-white/10 bg-white/[0.04] px-3 py-1.5 text-xs text-white/50 backdrop-blur-md sm:inline-flex">

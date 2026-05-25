@@ -1,4 +1,4 @@
-# X Post Draft — Mezo Governance Allocator
+# X Post Draft — Borealis
 
 **DO NOT POST — Gabriel must review and approve before posting.**
 **Voice:** Cipher Kuma (DeFi/governance-focused)
@@ -9,15 +9,15 @@
 
 ## Option A — Technical (recommended)
 
-> Built a governance allocator for @MezoNetwork
+> Built Borealis — a governance allocator for @MezoNetwork
 >
-> Lock BTC -> get veBTC voting power. Add MEZO boost -> amplify your gauge weight. Cast a vote -> redirect Bitcoin-backed emissions across ecosystem gauges.
+> Lock MEZO -> get veMEZO voting power. Vote on gauges -> direct MUSD treasury grants across the ecosystem. Epoch settles -> MUSD distributed proportional to vote weight.
 >
-> Contract deployed on Mezo testnet, emitting AllocationUpdated on every vote.
+> 3 contracts live on Mezo testnet. Full lock → vote → settle flow on-chain.
 >
 > Demo: https://mezo-governance-allocator.vercel.app
-> Code: https://github.com/CipherKuma/mezo-governance-allocator
-> Tx: https://explorer.test.mezo.org/tx/0x57640d16ec5c7ae8b6d51dfcad3bf6d5e785bf28ba45f3c96df1c65a7398de40
+> Code: https://github.com/CipherKuma/borealis
+> Tx: https://explorer.test.mezo.org/tx/0x9d052bea76d4c77b73bd2b830778ca18dc2eebf3f695dba457536adfd0d68a40
 >
 > #Mezo #BitcoinDeFi #BuildOnMezo
 
@@ -25,11 +25,11 @@
 
 ## Option B — Governance utility angle
 
-> Most teams build payments on @MezoNetwork. We built the governance dial.
+> Most teams build payments on @MezoNetwork. We built the treasury dial.
 >
-> Mezo Allocator: veBTC base power + MEZO boost multiplier -> gauge votes -> emission direction. BTC-backed capital flows where the protocol governs, not where defaults point it.
+> Borealis: lock MEZO -> veMEZO weight -> gauge votes -> MUSD treasury flows where the community governs. Sybil-resistant via an on-chain voter registry.
 >
-> Live on Mezo testnet with 4 gauges and on-chain vote proof.
+> Live on Mezo testnet with 4 gauges, epoch settlement, and on-chain vote proof.
 >
 > https://mezo-governance-allocator.vercel.app
 >
@@ -39,12 +39,12 @@
 
 ## Option C — Minimal
 
-> Gauge voting workbench for @MezoNetwork — built for their hackathon.
+> Borealis — MUSD treasury allocation for @MezoNetwork, built for their hackathon.
 >
-> veBTC + MEZO boost -> allocate Bitcoin-backed capital across gauges. Solidity allocator deployed on Mezo testnet + React control room.
+> Lock MEZO -> veMEZO voting power -> direct MUSD grants across gauges. Epoch-based settlement, deployed on Mezo testnet + React control room.
 >
 > Demo: https://mezo-governance-allocator.vercel.app
-> Repo: https://github.com/CipherKuma/mezo-governance-allocator
+> Repo: https://github.com/CipherKuma/borealis
 >
 > #MezoHackathon #MEZO
 
@@ -54,5 +54,5 @@
 
 - Post from Cipher Kuma's X account
 - Tag `@MezoNetwork`
-- Add a screenshot of the workbench UI
+- Add a screenshot of the lock → vote → settle flow
 - Option A is recommended — includes the on-chain proof link

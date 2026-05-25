@@ -1,25 +1,25 @@
-# Mezo Allocator
+# Borealis
 
-MEZO Governance Allocator and Gauge Simulator for the Mezo Hackathon.
+Sybil-resistant MUSD treasury allocation via veMEZO gauge votes — built for the Mezo Hackathon (MEZO Utilization track).
 
-This build targets the MEZO Utilization track. It models how veBTC base voting power, MEZO boost, and gauge votes can redirect Bitcoin-backed capital across Mezo gauges, then produces an `AllocationUpdated` receipt instead of stopping at a static calculator.
+Borealis lets MEZO holders lock their tokens for veMEZO voting power, then vote on gauges that direct MUSD treasury grants across ecosystem initiatives. Epoch settlement distributes MUSD proportional to each gauge's vote weight. Three contracts are deployed on Mezo testnet with mock tokens for a complete demo flow.
 
 ## What It Ships
 
-- Template-informed React control room using Gabriel's Portal/SaaS visual language.
-- Deterministic allocator math for veBTC decay, MEZO boost, gauge normalization, and MUSD/BTC impact.
-- Solidity `GovernanceAllocator` contract with `GaugeRegistered` and `AllocationUpdated` events.
-- Mezo testnet RPC check and deployment script.
-- Explicit receipt modes: fixture/demo receipt now, Mezo testnet receipt only after a funded deployment and vote transaction.
+- React control room (RainbowKit + wagmi) for the full lock → vote → settle → distribute flow.
+- `MUSDGovernanceAllocator` contract: MUSD treasury, veMEZO locking, voter registry (Sybil gating), gauge voting, epoch settlement.
+- `MockMEZO` + `MockMUSD` ERC-20s with faucet functions for demo without real funds.
+- Whitepaper-accurate veMEZO lock-boost formula (longer lock = higher weight).
+- Cloudflare D1 backend for off-chain metadata (profiles, gauge applications, comments, leaderboards).
 
 ## Demo State Transition
 
-1. Start from a veBTC position.
-2. Adjust locked BTC, remaining lock days, and MEZO boost.
-3. Change proposed gauge weights.
-4. Simulate allocation.
-5. Show before/after impact and an explicitly labeled fixture `AllocationUpdated` receipt.
-6. With a funded deployer, run the same path on Mezo testnet and show the explorer link.
+1. Mint test MEZO + MUSD from the in-app faucet.
+2. Lock MEZO for a chosen duration (7–365 days) to receive veMEZO voting power.
+3. Vote on the four gauges (BTC/MUSD Pool, MUSD Savings, Validator Yield, Ecosystem Grants).
+4. Wait for the epoch to close (5-minute epochs on testnet).
+5. Settle the epoch — MUSD is distributed proportional to vote weight.
+6. View the on-chain settlement transaction on the Mezo explorer.
 
 ## Commands
 

@@ -48,7 +48,7 @@ export function getInitialWalletAuthState(
 
 export function buildWalletAuthMessage(account: string) {
   return [
-    "MEZO Governance Allocator readiness auth",
+    "Borealis readiness auth",
     `Account: ${account}`,
     `Chain: ${MEZO_NETWORK.id}`,
     "Purpose: verify wallet control before live gauge allocation testing.",

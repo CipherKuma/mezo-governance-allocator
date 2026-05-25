@@ -14,7 +14,7 @@ Updated: 2026-05-25 — **CORRECTED: Gabriel removed; team is Cipher Kuma + Ratn
 ## Decision Log
 
 - 2026-05-24: Autonomous session defaulted to Gabriel per system prompt instruction. Used `gh` CLI (authenticated as `gabrielantonyxaviour`) to create public repo.
-- 2026-05-25: First identity override — Cipher Kuma assigned as primary submitter. Gabriel and Ratna listed as co-members. New repo under `CipherKuma/mezo-governance-allocator`.
+- 2026-05-25: First identity override — Cipher Kuma assigned as primary submitter. Gabriel and Ratna listed as co-members. New repo under `CipherKuma/borealis`.
 - 2026-05-25: **Final allocation** — Gabriel removed entirely. Cipher Kuma primary; Ratna and Spinola as co-members. Each team member must show real code contributions in commit history (see post-deploy rebase plan).
 
 ## Encode Club submission

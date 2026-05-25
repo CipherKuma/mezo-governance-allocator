@@ -1,0 +1,8 @@
+name = "mezo-gov-api"
+compatibility_date = "2026-05-24"
+compatibility_flags = ["nodejs_compat"]
+
+[[d1_databases]]
+binding = "DB"
+database_name = "mezo-gov-db"
+database_id = "3a22649e-4e81-4bff-88d5-274dfd7ecfae"
