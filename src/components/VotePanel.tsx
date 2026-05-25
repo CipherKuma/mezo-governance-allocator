@@ -5,6 +5,7 @@ import {
   useVotingPower,
   useIsVerifiedVoter,
   useWriteAllocator,
+  useHasGas,
   formatEther,
 } from "../hooks/useAllocatorContract";
 
@@ -20,6 +21,7 @@ export function VotePanel() {
   const { data: votingPower } = useVotingPower(address);
   const { data: isVerified } = useIsVerifiedVoter(address);
   const { castVote, isPending } = useWriteAllocator();
+  const { hasGas } = useHasGas();
 
   const [weights, setWeights] = useState([3000, 2000, 1500, 3500]);
 
@@ -113,8 +115,10 @@ export function VotePanel() {
 
       <button
         onClick={handleVote}
-        disabled={isPending || !isValid || !votingPower || votingPower === 0n}
-        className="w-full rounded-xl bg-btc px-4 py-3 text-sm font-semibold text-black transition-colors hover:bg-btc/90 disabled:opacity-40"
+        disabled={
+          isPending || !hasGas || !isValid || !votingPower || votingPower === 0n
+        }
+        className="w-full rounded-xl bg-btc px-4 py-3 text-sm font-semibold text-black transition-colors hover:bg-btc/90 disabled:cursor-not-allowed disabled:opacity-40"
       >
         {isPending
           ? "Casting vote..."

@@ -16,6 +16,8 @@ import { LockPanel } from "../components/LockPanel";
 import { VotePanel } from "../components/VotePanel";
 import { FaucetPanel } from "../components/FaucetPanel";
 import { EpochPanel } from "../components/EpochPanel";
+import { GasGate } from "../components/GasGate";
+import { useHasGas } from "../hooks/useAllocatorContract";
 
 type Section = "treasury" | "lock" | "vote" | "epochs" | "faucet";
 
@@ -31,6 +33,7 @@ export function Dashboard() {
   const [active, setActive] = useState<Section>("treasury");
   const { address } = useAccount();
   const { data: btcBalance } = useBalance({ address });
+  const { hasGas } = useHasGas();
 
   const shortAddr = address
     ? `${address.slice(0, 6)}...${address.slice(-4)}`
@@ -113,6 +116,7 @@ export function Dashboard() {
         </header>
 
         <div className="mx-auto max-w-3xl px-6 py-8">
+          {!hasGas && <GasGate />}
           {active === "treasury" && <TreasuryPanel />}
           {active === "lock" && <LockPanel />}
           {active === "vote" && <VotePanel />}

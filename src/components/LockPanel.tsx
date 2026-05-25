@@ -7,6 +7,7 @@ import {
   useTokenBalance,
   useContractAddresses,
   useWriteAllocator,
+  useHasGas,
   formatEther,
   parseEther,
 } from "../hooks/useAllocatorContract";
@@ -18,6 +19,7 @@ export function LockPanel() {
   const { data: votingPower } = useVotingPower(address);
   const { data: lockData } = useUserLock(address);
   const { lockMezo, isPending } = useWriteAllocator();
+  const { hasGas } = useHasGas();
 
   const [lockAmount, setLockAmount] = useState("1000");
   const [lockDays, setLockDays] = useState(180);
@@ -116,8 +118,8 @@ export function LockPanel() {
 
       <button
         onClick={handleLock}
-        disabled={isPending || !lockAmount || lockAmount === "0"}
-        className="w-full rounded-lg bg-btc px-4 py-2.5 text-sm font-semibold text-graphite transition-colors hover:bg-btc/90 disabled:opacity-50"
+        disabled={isPending || !hasGas || !lockAmount || lockAmount === "0"}
+        className="w-full rounded-lg bg-btc px-4 py-2.5 text-sm font-semibold text-graphite transition-colors hover:bg-btc/90 disabled:cursor-not-allowed disabled:opacity-40"
       >
         {isPending ? "Locking..." : "Lock MEZO → veMEZO"}
       </button>

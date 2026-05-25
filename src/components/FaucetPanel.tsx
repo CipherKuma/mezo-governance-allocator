@@ -4,6 +4,7 @@ import {
   useTokenBalance,
   useContractAddresses,
   useWriteAllocator,
+  useHasGas,
   formatEther,
   parseEther,
 } from "../hooks/useAllocatorContract";
@@ -14,6 +15,7 @@ export function FaucetPanel() {
   const { data: mezoBalance } = useTokenBalance(mockMezoAddress, address);
   const { data: musdBalance } = useTokenBalance(mockMusdAddress, address);
   const { faucetMezo, faucetMusd, isPending } = useWriteAllocator();
+  const { hasGas } = useHasGas();
 
   const fmt = (val: bigint | undefined) =>
     val
@@ -45,15 +47,15 @@ export function FaucetPanel() {
       <div className="flex gap-2">
         <button
           onClick={() => faucetMezo(parseEther("10000"))}
-          disabled={isPending}
-          className="flex-1 rounded-lg border border-btc/20 px-3 py-2 text-xs font-medium text-btc transition-colors hover:bg-btc/10 disabled:opacity-50"
+          disabled={isPending || !hasGas}
+          className="flex-1 rounded-lg border border-btc/20 px-3 py-2 text-xs font-medium text-btc transition-colors hover:bg-btc/10 disabled:cursor-not-allowed disabled:opacity-40"
         >
           +10K MEZO
         </button>
         <button
           onClick={() => faucetMusd(parseEther("10000"))}
-          disabled={isPending}
-          className="flex-1 rounded-lg border border-musd/20 px-3 py-2 text-xs font-medium text-musd transition-colors hover:bg-musd/10 disabled:opacity-50"
+          disabled={isPending || !hasGas}
+          className="flex-1 rounded-lg border border-musd/20 px-3 py-2 text-xs font-medium text-musd transition-colors hover:bg-musd/10 disabled:cursor-not-allowed disabled:opacity-40"
         >
           +10K MUSD
         </button>

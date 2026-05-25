@@ -4,6 +4,7 @@ import {
   useCurrentEpoch,
   useEpochTimeRemaining,
   useWriteAllocator,
+  useHasGas,
   formatEther,
   parseEther,
 } from "../hooks/useAllocatorContract";
@@ -13,6 +14,7 @@ export function TreasuryPanel() {
   const { data: epoch } = useCurrentEpoch();
   const { data: remaining } = useEpochTimeRemaining();
   const { depositTreasury, settleEpoch, isPending } = useWriteAllocator();
+  const { hasGas } = useHasGas();
 
   const treasuryFormatted = treasury
     ? Number(formatEther(treasury)).toLocaleString(undefined, {
@@ -54,16 +56,16 @@ export function TreasuryPanel() {
       <div className="flex gap-2">
         <button
           onClick={() => depositTreasury(parseEther("1000"))}
-          disabled={isPending}
-          className="flex items-center gap-1.5 rounded-lg bg-musd/20 px-3 py-2 text-xs font-medium text-musd transition-colors hover:bg-musd/30 disabled:opacity-50"
+          disabled={isPending || !hasGas}
+          className="flex items-center gap-1.5 rounded-lg bg-musd/20 px-3 py-2 text-xs font-medium text-musd transition-colors hover:bg-musd/30 disabled:cursor-not-allowed disabled:opacity-40"
         >
           <ArrowDownToLine size={14} />
           Deposit 1K MUSD
         </button>
         <button
           onClick={() => settleEpoch()}
-          disabled={isPending || !canSettle}
-          className="rounded-lg bg-btc/20 px-3 py-2 text-xs font-medium text-btc transition-colors hover:bg-btc/30 disabled:opacity-50"
+          disabled={isPending || !hasGas || !canSettle}
+          className="rounded-lg bg-btc/20 px-3 py-2 text-xs font-medium text-btc transition-colors hover:bg-btc/30 disabled:cursor-not-allowed disabled:opacity-40"
         >
           Settle Epoch
         </button>

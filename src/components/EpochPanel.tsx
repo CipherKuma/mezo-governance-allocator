@@ -4,6 +4,7 @@ import {
   useEpochTimeRemaining,
   useTreasuryBalance,
   useWriteAllocator,
+  useHasGas,
   formatEther,
 } from "../hooks/useAllocatorContract";
 
@@ -12,6 +13,7 @@ export function EpochPanel() {
   const { data: remaining } = useEpochTimeRemaining();
   const { data: treasury } = useTreasuryBalance();
   const { settleEpoch, isPending } = useWriteAllocator();
+  const { hasGas } = useHasGas();
 
   const epochNum = epoch ? Number(epoch) : 0;
   const remainingSec = remaining ? Number(remaining) : 0;
@@ -68,8 +70,8 @@ export function EpochPanel() {
         </p>
         <button
           onClick={() => settleEpoch()}
-          disabled={isPending || !canSettle}
-          className="flex w-full items-center justify-center gap-2 rounded-xl bg-musd/10 px-4 py-3 text-sm font-semibold text-musd transition-colors hover:bg-musd/20 disabled:opacity-40"
+          disabled={isPending || !hasGas || !canSettle}
+          className="flex w-full items-center justify-center gap-2 rounded-xl bg-musd/10 px-4 py-3 text-sm font-semibold text-musd transition-colors hover:bg-musd/20 disabled:cursor-not-allowed disabled:opacity-40"
         >
           <CheckCircle size={16} />
           {isPending

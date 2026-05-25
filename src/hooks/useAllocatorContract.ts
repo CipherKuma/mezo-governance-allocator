@@ -1,6 +1,14 @@
-import { useReadContract, useWriteContract, useAccount } from "wagmi";
+import {
+  useReadContract,
+  useWriteContract,
+  useAccount,
+  useBalance,
+} from "wagmi";
 import { parseEther, formatEther, type Address } from "viem";
 import { erc20Abi, musdAllocatorAbi } from "../lib/abis";
+
+export const MIN_GAS_BTC = 0.0001;
+export const BTC_FAUCET_URL = "https://faucet.test.mezo.org/";
 
 function cleanAddress(raw: unknown): Address | undefined {
   if (typeof raw !== "string") return undefined;
@@ -16,6 +24,20 @@ const mockMusdAddress = cleanAddress(import.meta.env.VITE_MOCK_MUSD_ADDRESS);
 
 export function useIsLiveMode() {
   return Boolean(allocatorAddress && mockMezoAddress && mockMusdAddress);
+}
+
+export function useHasGas() {
+  const { address } = useAccount();
+  const { data, isLoading } = useBalance({
+    address,
+    query: { enabled: Boolean(address), refetchInterval: 10_000 },
+  });
+  const btc = data ? Number(data.value) / 10 ** data.decimals : 0;
+  return {
+    hasGas: btc >= MIN_GAS_BTC,
+    btcBalance: btc,
+    isLoading,
+  };
 }
 
 export function useContractAddresses() {
