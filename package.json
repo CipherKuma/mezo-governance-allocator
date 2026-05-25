@@ -13,6 +13,7 @@
     "deploy:mezo": "node scripts/deploy-mezo.mjs",
     "deploy:full": "node scripts/deploy-full.mjs",
     "verify:proof": "node scripts/verify-live-proof.mjs",
+    "e2e:verify": "node scripts/e2e-verify.mjs",
     "video:studio": "remotion studio remotion/index.ts",
     "video:still": "remotion still remotion/index.ts BorealisPitch out/borealis-pitch-frame.png --frame=240 --overwrite",
     "video:render": "remotion render remotion/index.ts BorealisPitch out/borealis-pitch-placeholder.mp4 --concurrency=1 --overwrite"
