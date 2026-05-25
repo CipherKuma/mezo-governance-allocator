@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useAccount } from "wagmi";
-import { TrendingUp, Info } from "lucide-react";
+import { TrendingUp, Info, CheckCircle2, ExternalLink } from "lucide-react";
 import {
   useVotingPower,
   useIsVerifiedVoter,
@@ -17,6 +17,10 @@ export function VotePanel() {
   const { data: votingPower, refetch: refetchPower } = useVotingPower(address);
   const { data: isVerified, refetch: refetchVerified } =
     useIsVerifiedVoter(address);
+  const [regTx, setRegTx] = useState<{
+    txHash: string;
+    explorerUrl: string;
+  } | null>(null);
   const { data: treasury } = useTreasuryBalance();
   const { castVote, isPending } = useWriteAllocator();
   const { hasGas } = useHasGas();
@@ -62,11 +66,37 @@ export function VotePanel() {
 
   return (
     <div className="space-y-5">
-      {isConnected && address && !isVerified && (
+      {isConnected && address && !isVerified && !regTx && (
         <RegisterVoterCard
           address={address}
-          onRegistered={() => refetchVerified()}
+          onRegistered={(tx) => {
+            setRegTx(tx);
+            refetchVerified();
+          }}
         />
+      )}
+
+      {regTx && (
+        <div className="flex items-center gap-3 rounded-xl border border-musd/20 bg-musd/[0.06] p-4">
+          <CheckCircle2 size={18} className="shrink-0 text-musd" />
+          <div className="flex-1">
+            <p className="text-sm font-medium text-musd">
+              Registered as voter on-chain
+            </p>
+            <p className="mt-0.5 break-all font-mono text-[10px] text-white/30">
+              {regTx.txHash}
+            </p>
+          </div>
+          <a
+            href={regTx.explorerUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex shrink-0 items-center gap-1 rounded-lg bg-musd/10 px-2.5 py-1.5 text-xs font-medium text-musd transition-colors hover:bg-musd/20"
+          >
+            Explorer
+            <ExternalLink size={12} />
+          </a>
+        </div>
       )}
 
       <div className="rounded-xl border border-white/10 bg-graphite/80 p-4 shadow-glass">

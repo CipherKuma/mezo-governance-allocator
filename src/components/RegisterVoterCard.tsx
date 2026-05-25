@@ -13,7 +13,7 @@ export function RegisterVoterCard({
   onRegistered,
 }: {
   address: string;
-  onRegistered: () => void;
+  onRegistered: (tx: { txHash: string; explorerUrl: string } | null) => void;
 }) {
   const [state, setState] = useState<RegState>({ step: "idle" });
 
@@ -29,7 +29,7 @@ export function RegisterVoterCard({
 
       if (data.status === "already_registered") {
         setState({ step: "already" });
-        onRegistered();
+        onRegistered(null);
         return;
       }
       if (data.status === "registered") {
@@ -38,7 +38,7 @@ export function RegisterVoterCard({
           txHash: data.txHash,
           explorerUrl: data.explorerUrl,
         });
-        onRegistered();
+        onRegistered({ txHash: data.txHash, explorerUrl: data.explorerUrl });
         return;
       }
       setState({
