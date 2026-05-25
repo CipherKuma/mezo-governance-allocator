@@ -72,6 +72,31 @@ export function useEpochTimeRemaining() {
   });
 }
 
+export function useEpochDuration() {
+  return useReadContract({
+    address: allocatorAddress,
+    abi: musdAllocatorAbi,
+    functionName: "epochDuration",
+    query: { enabled: Boolean(allocatorAddress) },
+  });
+}
+
+// Total MEZO locked across all voters = the allocator's MEZO token balance.
+export function useTotalLocked() {
+  return useReadContract({
+    address: mockMezoAddress,
+    abi: erc20Abi,
+    functionName: "balanceOf",
+    args: allocatorAddress ? [allocatorAddress] : undefined,
+    query: {
+      enabled: Boolean(mockMezoAddress && allocatorAddress),
+      refetchInterval: 15_000,
+    },
+  });
+}
+
+export { allocatorAddress, mockMezoAddress, mockMusdAddress };
+
 export function useVotingPower(userAddress: Address | undefined) {
   return useReadContract({
     address: allocatorAddress,

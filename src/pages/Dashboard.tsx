@@ -2,6 +2,7 @@ import { useState } from "react";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 import { useAccount, useBalance } from "wagmi";
 import {
+  LayoutDashboard,
   Landmark,
   Lock,
   Vote,
@@ -12,6 +13,7 @@ import {
   ShieldCheck,
   Home,
 } from "lucide-react";
+import { OverviewPanel } from "../components/OverviewPanel";
 import { TreasuryPanel } from "../components/TreasuryPanel";
 import { LockPanel } from "../components/LockPanel";
 import { VotePanel } from "../components/VotePanel";
@@ -22,9 +24,17 @@ import { GasGate } from "../components/GasGate";
 import { WalletGate } from "../components/WalletGate";
 import { useHasGas } from "../hooks/useAllocatorContract";
 
-type Section = "treasury" | "proof" | "lock" | "vote" | "epochs" | "faucet";
+type Section =
+  | "overview"
+  | "treasury"
+  | "proof"
+  | "lock"
+  | "vote"
+  | "epochs"
+  | "faucet";
 
 const navItems: { id: Section; label: string; icon: typeof Landmark }[] = [
+  { id: "overview", label: "Overview", icon: LayoutDashboard },
   { id: "treasury", label: "Treasury", icon: Landmark },
   { id: "proof", label: "Live Proof", icon: ShieldCheck },
   { id: "lock", label: "Lock MEZO", icon: Lock },
@@ -40,7 +50,7 @@ export function Dashboard({
   readOnly: boolean;
   onExitDemo: () => void;
 }) {
-  const [active, setActive] = useState<Section>("treasury");
+  const [active, setActive] = useState<Section>("overview");
   const { address } = useAccount();
   const { data: btcBalance } = useBalance({ address });
   const { hasGas } = useHasGas();
@@ -192,6 +202,11 @@ export function Dashboard({
               : active === "proof"
                 ? "Live Proof"
                 : active}
+            {active === "overview" && (
+              <span className="ml-2 text-sm font-normal text-white/35">
+                · MUSD Capital Router
+              </span>
+            )}
           </h2>
           <div className="flex items-center gap-2">
             {!readOnly && (
@@ -210,8 +225,11 @@ export function Dashboard({
         </header>
 
         <div className="mx-auto max-w-3xl px-4 py-6 md:px-6 md:py-8">
-          {readOnly && active !== "proof" && <WalletGate />}
+          {readOnly && active !== "proof" && active !== "overview" && (
+            <WalletGate />
+          )}
           {!readOnly && !hasGas && <GasGate />}
+          {active === "overview" && <OverviewPanel />}
           {active === "treasury" && <TreasuryPanel />}
           {active === "proof" && <LiveProofPanel />}
           {active === "lock" && <LockPanel />}
