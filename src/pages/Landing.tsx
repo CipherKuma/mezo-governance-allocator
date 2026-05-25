@@ -1,7 +1,7 @@
 import { Suspense, lazy } from "react";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 import { motion } from "framer-motion";
-import { Activity, Shield, ArrowRight } from "lucide-react";
+import { Activity, Shield } from "lucide-react";
 
 const Spline = lazy(() => import("@splinetool/react-spline"));
 
@@ -10,7 +10,7 @@ const fadeUp = {
   visible: { opacity: 1, y: 0, filter: "blur(0px)" },
 };
 
-export function Landing({ onViewDemo }: { onViewDemo: () => void }) {
+export function Landing() {
   return (
     <div className="relative h-screen w-screen overflow-hidden bg-[hsl(0,0%,5%)]">
       <Suspense
@@ -90,35 +90,9 @@ export function Landing({ onViewDemo }: { onViewDemo: () => void }) {
         <motion.div
           variants={fadeUp}
           transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-          className="flex flex-wrap items-center gap-3"
         >
-          <button
-            onClick={onViewDemo}
-            className="inline-flex items-center gap-2 rounded-xl bg-btc px-5 py-3 text-sm font-semibold text-black transition hover:bg-[#ffad3b]"
-          >
-            View Live Demo
-            <ArrowRight size={16} />
-          </button>
-          <ConnectButton.Custom>
-            {({ openConnectModal }) => (
-              <button
-                onClick={openConnectModal}
-                className="inline-flex items-center gap-2 rounded-xl border border-white/15 bg-white/[0.04] px-5 py-3 text-sm font-semibold text-white backdrop-blur-md transition hover:bg-white/[0.08]"
-              >
-                Connect Mezo Wallet
-              </button>
-            )}
-          </ConnectButton.Custom>
+          <ConnectButton label="Connect Mezo Wallet" />
         </motion.div>
-
-        <motion.p
-          variants={fadeUp}
-          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-          className="text-xs text-white/35"
-        >
-          No wallet needed to explore — the demo reads live state from Mezo
-          testnet (chain 31611).
-        </motion.p>
       </motion.div>
     </div>
   );

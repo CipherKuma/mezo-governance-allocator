@@ -11,7 +11,6 @@ import {
   LogOut,
   Bitcoin,
   ShieldCheck,
-  Home,
 } from "lucide-react";
 import { OverviewPanel } from "../components/OverviewPanel";
 import { TreasuryPanel } from "../components/TreasuryPanel";
@@ -21,7 +20,6 @@ import { FaucetPanel } from "../components/FaucetPanel";
 import { EpochPanel } from "../components/EpochPanel";
 import { LiveProofPanel } from "../components/LiveProofPanel";
 import { GasGate } from "../components/GasGate";
-import { WalletGate } from "../components/WalletGate";
 import {
   useHasGas,
   useTokenBalance,
@@ -48,13 +46,7 @@ const navItems: { id: Section; label: string; icon: typeof Landmark }[] = [
   { id: "faucet", label: "Faucet", icon: Droplets },
 ];
 
-export function Dashboard({
-  readOnly,
-  onExitDemo,
-}: {
-  readOnly: boolean;
-  onExitDemo: () => void;
-}) {
+export function Dashboard() {
   const [active, setActive] = useState<Section>("overview");
   const { address } = useAccount();
   const { data: btcBalance } = useBalance({ address });
@@ -109,50 +101,23 @@ export function Dashboard({
         </nav>
 
         <div className="border-t border-white/[0.06] px-4 py-4">
-          {readOnly ? (
-            <div className="flex flex-col gap-2">
-              <span className="inline-flex w-fit items-center gap-1.5 rounded-full border border-btc/20 bg-btc/10 px-2.5 py-1 text-[10px] font-medium uppercase tracking-wider text-btc">
-                Read-only demo
-              </span>
-              <ConnectButton.Custom>
-                {({ openConnectModal }) => (
-                  <button
-                    onClick={openConnectModal}
-                    className="rounded-lg bg-white/[0.06] px-3 py-2 text-xs font-medium text-white/80 transition-colors hover:bg-white/[0.1]"
-                  >
-                    Connect Mezo wallet
-                  </button>
-                )}
-              </ConnectButton.Custom>
+          <div className="mb-2 text-[10px] uppercase tracking-wider text-white/25">
+            Connected
+          </div>
+          <div className="mb-3 font-mono text-xs text-white/60">
+            {shortAddr}
+          </div>
+          <ConnectButton.Custom>
+            {({ openAccountModal }) => (
               <button
-                onClick={onExitDemo}
+                onClick={openAccountModal}
                 className="flex items-center gap-1.5 text-xs text-white/30 transition-colors hover:text-white/60"
               >
-                <Home size={12} />
-                Back to home
+                <LogOut size={12} />
+                Manage
               </button>
-            </div>
-          ) : (
-            <>
-              <div className="mb-2 text-[10px] uppercase tracking-wider text-white/25">
-                Connected
-              </div>
-              <div className="mb-3 font-mono text-xs text-white/60">
-                {shortAddr}
-              </div>
-              <ConnectButton.Custom>
-                {({ openAccountModal }) => (
-                  <button
-                    onClick={openAccountModal}
-                    className="flex items-center gap-1.5 text-xs text-white/30 transition-colors hover:text-white/60"
-                  >
-                    <LogOut size={12} />
-                    Manage
-                  </button>
-                )}
-              </ConnectButton.Custom>
-            </>
-          )}
+            )}
+          </ConnectButton.Custom>
         </div>
       </aside>
 
@@ -172,22 +137,9 @@ export function Dashboard({
               <span className="rounded-full border border-musd/20 bg-musd/5 px-2 py-0.5 text-[10px] font-medium text-musd">
                 31611
               </span>
-              {readOnly ? (
-                <ConnectButton.Custom>
-                  {({ openConnectModal }) => (
-                    <button
-                      onClick={openConnectModal}
-                      className="rounded-full bg-white/[0.08] px-2.5 py-0.5 text-[10px] font-medium text-white/80"
-                    >
-                      Connect
-                    </button>
-                  )}
-                </ConnectButton.Custom>
-              ) : (
-                <span className="rounded-full border border-white/10 bg-white/[0.04] px-2 py-0.5 font-mono text-[10px] text-white/60">
-                  {shortAddr}
-                </span>
-              )}
+              <span className="rounded-full border border-white/10 bg-white/[0.04] px-2 py-0.5 font-mono text-[10px] text-white/60">
+                {shortAddr}
+              </span>
             </div>
           </div>
           <nav className="flex gap-1 overflow-x-auto px-3 pb-2">
@@ -222,19 +174,15 @@ export function Dashboard({
             )}
           </h2>
           <div className="flex items-center gap-2">
-            {!readOnly && (
-              <>
-                <span className="flex items-center gap-1.5 rounded-full border border-btc/20 bg-btc/5 px-2.5 py-1 text-[11px] font-medium text-btc">
-                  <Bitcoin size={12} />
-                  {btcFormatted} BTC
-                </span>
-                <span className="rounded-full border border-white/10 bg-white/[0.04] px-2.5 py-1 text-[11px] font-medium text-white/60">
-                  {mezoFormatted} MEZO
-                </span>
-              </>
-            )}
+            <span className="flex items-center gap-1.5 rounded-full border border-btc/20 bg-btc/5 px-2.5 py-1 text-[11px] font-medium text-btc">
+              <Bitcoin size={12} />
+              {btcFormatted} BTC
+            </span>
+            <span className="rounded-full border border-white/10 bg-white/[0.04] px-2.5 py-1 text-[11px] font-medium text-white/60">
+              {mezoFormatted} MEZO
+            </span>
             <span className="rounded-full border border-white/10 bg-white/[0.04] px-2.5 py-1 font-mono text-[11px] text-white/60">
-              {readOnly ? "demo · read-only" : shortAddr}
+              {shortAddr}
             </span>
             <span className="rounded-full border border-musd/20 bg-musd/5 px-2.5 py-1 text-[11px] font-medium text-musd">
               Chain 31611
@@ -243,10 +191,7 @@ export function Dashboard({
         </header>
 
         <div className="mx-auto max-w-3xl px-4 py-6 md:px-6 md:py-8">
-          {readOnly && active !== "proof" && active !== "overview" && (
-            <WalletGate />
-          )}
-          {!readOnly && !hasGas && <GasGate />}
+          {!hasGas && <GasGate />}
           {active === "overview" && <OverviewPanel />}
           {active === "treasury" && <TreasuryPanel />}
           {active === "proof" && <LiveProofPanel />}
