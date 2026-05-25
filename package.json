@@ -11,7 +11,11 @@
     "check:rpc": "node scripts/check-rpc.mjs",
     "contracts:compile": "node scripts/compile-contract.mjs",
     "deploy:mezo": "node scripts/deploy-mezo.mjs",
-    "deploy:full": "node scripts/deploy-full.mjs"
+    "deploy:full": "node scripts/deploy-full.mjs",
+    "verify:proof": "node scripts/verify-live-proof.mjs",
+    "video:studio": "remotion studio remotion/index.ts",
+    "video:still": "remotion still remotion/index.ts BorealisPitch out/borealis-pitch-frame.png --frame=240 --overwrite",
+    "video:render": "remotion render remotion/index.ts BorealisPitch out/borealis-pitch-placeholder.mp4 --concurrency=1 --overwrite"
   },
   "dependencies": {
     "@mezo-org/passport": "^0.17.2",
@@ -28,11 +32,13 @@
   },
   "devDependencies": {
     "@playwright/test": "^1.60.0",
+    "@remotion/cli": "^4.0.465",
     "@types/react": "^19.2.15",
     "@types/react-dom": "^19.2.3",
     "@vitejs/plugin-react": "^5.1.1",
     "autoprefixer": "^10.4.22",
     "postcss": "^8.5.6",
+    "remotion": "^4.0.465",
     "solc": "^0.8.30",
     "tailwindcss": "^3.4.17",
     "typescript": "^5.9.3",

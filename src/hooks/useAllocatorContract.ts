@@ -1,5 +1,6 @@
 import {
   useReadContract,
+  useReadContracts,
   useWriteContract,
   useAccount,
   useBalance,
@@ -99,6 +100,35 @@ export function useIsVerifiedVoter(userAddress: Address | undefined) {
     args: userAddress ? [userAddress] : undefined,
     query: { enabled: Boolean(allocatorAddress && userAddress) },
   });
+}
+
+// Reads each gauge's on-chain totalVotes (gauge ids 1..count) so the UI can
+// show how the treasury is being routed by live votes. Returns the share each
+// gauge holds of total cast voting weight.
+export function useGaugeTotals(gaugeIds: bigint[]) {
+  const query = useReadContracts({
+    contracts: gaugeIds.map((id) => ({
+      address: allocatorAddress,
+      abi: musdAllocatorAbi,
+      functionName: "gauges" as const,
+      args: [id] as const,
+    })),
+    query: { enabled: Boolean(allocatorAddress), refetchInterval: 15_000 },
+  });
+
+  const totals = (query.data ?? []).map((r) => {
+    // gauges() returns [label, recipient, totalVotes, exists]
+    const result = r.result as
+      | readonly [string, Address, bigint, boolean]
+      | undefined;
+    return result ? result[2] : 0n;
+  });
+  const sum = totals.reduce((a, b) => a + b, 0n);
+  const shares = totals.map((v) =>
+    sum > 0n ? Number((v * 10000n) / sum) / 100 : 0,
+  );
+
+  return { totals, sum, shares, isLoading: query.isLoading };
 }
 
 export function useTokenBalance(

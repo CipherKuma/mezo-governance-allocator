@@ -1,7 +1,7 @@
 import { Suspense, lazy } from "react";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 import { motion } from "framer-motion";
-import { Activity, Shield } from "lucide-react";
+import { Activity, Shield, ArrowRight } from "lucide-react";
 
 const Spline = lazy(() => import("@splinetool/react-spline"));
 
@@ -10,7 +10,7 @@ const fadeUp = {
   visible: { opacity: 1, y: 0, filter: "blur(0px)" },
 };
 
-export function Landing() {
+export function Landing({ onViewDemo }: { onViewDemo: () => void }) {
   return (
     <div className="relative h-screen w-screen overflow-hidden bg-[hsl(0,0%,5%)]">
       <Suspense
@@ -62,7 +62,7 @@ export function Landing() {
           transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
           className="text-xs font-semibold uppercase tracking-[0.2em] text-btc"
         >
-          MEZO Utilization · Governance
+          MEZO Utilization Track · Live on Mezo Testnet
         </motion.p>
 
         <motion.h1
@@ -70,11 +70,11 @@ export function Landing() {
           transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
           className="text-4xl font-semibold leading-[1.05] text-white sm:text-5xl lg:text-6xl"
         >
-          veMEZO holders allocate{" "}
+          MEZO-powered{" "}
           <span className="bg-gradient-to-r from-musd to-emerald-300 bg-clip-text text-transparent">
-            MUSD treasury
+            MUSD capital router
           </span>{" "}
-          via gauge votes.
+          for the Mezo ecosystem.
         </motion.h1>
 
         <motion.p
@@ -82,17 +82,43 @@ export function Landing() {
           transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
           className="max-w-lg text-base leading-relaxed text-white/50"
         >
-          Lock MEZO. Earn veMEZO voting power. Direct Bitcoin-backed capital
-          across ecosystem gauges. Epoch settlement distributes MUSD
-          proportionally.
+          Lock MEZO for veMEZO voting power. Direct the MUSD treasury across
+          ecosystem gauges. Epoch settlement routes capital where the community
+          governs — verifiable on-chain, every vote.
         </motion.p>
 
         <motion.div
           variants={fadeUp}
           transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+          className="flex flex-wrap items-center gap-3"
         >
-          <ConnectButton label="Enter App" />
+          <button
+            onClick={onViewDemo}
+            className="inline-flex items-center gap-2 rounded-xl bg-btc px-5 py-3 text-sm font-semibold text-black transition hover:bg-[#ffad3b]"
+          >
+            View Live Demo
+            <ArrowRight size={16} />
+          </button>
+          <ConnectButton.Custom>
+            {({ openConnectModal }) => (
+              <button
+                onClick={openConnectModal}
+                className="inline-flex items-center gap-2 rounded-xl border border-white/15 bg-white/[0.04] px-5 py-3 text-sm font-semibold text-white backdrop-blur-md transition hover:bg-white/[0.08]"
+              >
+                Connect Mezo Wallet
+              </button>
+            )}
+          </ConnectButton.Custom>
         </motion.div>
+
+        <motion.p
+          variants={fadeUp}
+          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+          className="text-xs text-white/35"
+        >
+          No wallet needed to explore — the demo reads live state from Mezo
+          testnet (chain 31611).
+        </motion.p>
       </motion.div>
     </div>
   );

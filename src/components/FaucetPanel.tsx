@@ -33,6 +33,15 @@ export function FaucetPanel() {
         </h3>
       </div>
 
+      <p className="mb-4 rounded-lg border border-white/[0.06] bg-black/30 px-3 py-2.5 text-xs leading-relaxed text-ivory/45">
+        These are{" "}
+        <span className="text-ivory/70">testnet bootstrap tokens</span> — ERC-20
+        mocks deployed so the full lock → vote → settle flow is demoable without
+        funded balances. They are not real MUSD or MEZO. Real Mezo MUSD/MEZO
+        integration is wired at the read layer; production swaps these faucet
+        mints for the live tokens.
+      </p>
+
       <div className="mb-3 grid grid-cols-2 gap-3 text-sm">
         <div>
           <div className="text-xs text-ivory/40">MEZO</div>

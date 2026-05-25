@@ -33,35 +33,52 @@ npm run build
 npm run dev -- --port 5180 --strictPort
 ```
 
-Local app URL in this run: `http://localhost:5180/`
+## Live deployment (Mezo testnet, chain 31611)
 
-## Mezo Testnet Deploy
+| Contract | Address |
+|----------|---------|
+| MUSDGovernanceAllocator | [`0x1cdba6eec37d77d8994296a29fdc2c230cc0596a`](https://explorer.test.mezo.org/address/0x1cdba6eec37d77d8994296a29fdc2c230cc0596a) |
+| MockMEZO (testnet bootstrap) | [`0x08b9caca9c9885d86d97d6928a3f44903a030778`](https://explorer.test.mezo.org/address/0x08b9caca9c9885d86d97d6928a3f44903a030778) |
+| MockMUSD (testnet bootstrap) | [`0xd6f43325a1103a16fccf268e28da053daadb755a`](https://explorer.test.mezo.org/address/0xd6f43325a1103a16fccf268e28da053daadb755a) |
 
-Required environment:
+- 50,000 MUSD treasury deposited · 4 gauges registered · sample vote cast:
+  [tx `0xabf4bd58…`](https://explorer.test.mezo.org/tx/0xabf4bd58b6b5a2fd39b932f9b2e0aa12e47550612c1457cdfe4baf672d919b16).
+- These addresses are verified live by `npm run verify:proof` (writes `outputs/live-proof.json`)
+  and re-verified in-browser on the app's **Live Proof** tab.
+
+## Verify the deployment yourself
 
 ```bash
-export MEZO_DEPLOYER_PRIVATE_KEY=0x...
-export MEZO_RPC_URL=https://rpc.test.mezo.org
+npm run check:rpc       # Mezo RPC reachable, chain 0x7b7b / 31611
+npm run verify:proof    # validates contract code, treasury, gauges, vote tx vs RPC
 ```
 
-Then:
+## Redeploy (optional)
 
 ```bash
+export DEPLOYER_PRIVATE_KEY=0x...   # funded with testnet BTC for gas
 npm run contracts:compile
-npm run deploy:mezo
+npm run deploy:full                 # writes outputs/full-deployment.json
 ```
 
-The script writes deployment proof to `outputs/mezo-deployment.json`.
+## Wallet connection
 
-## Current Integration Status
+The app connects through wagmi's EIP-6963 multi-injected discovery, which surfaces
+Mezo-compatible wallets (OKX, Xverse EVM, MetaMask) on chain 31611. **Mezo Passport**
+(`@mezo-org/passport`) is the intended primary path, but its RainbowKit-based Bitcoin
+connectors are currently incompatible with this project's wagmi 3 / React 19 stack
+(RainbowKit's wallet connectors import the `gemini` connector that wagmi 3 removed).
+See `TRUTH_AUDIT.md` for the precise blocker. The demo and all read paths work with
+no wallet connected.
 
-- Mezo testnet RPC verified: chain id `31611` / `0x7b7b`.
-- Web3 auth gate implemented through an injected EIP-1193 browser wallet: account request, Mezo chain check/switch attempt, and signed readiness message.
-- Current browser proof shows the no-wallet blocked state, not a verified wallet signature.
-- GovernanceAllocator deployed to Mezo testnet at `0x6758965df82863e05583fc975a95dfd0b391f446`.
-- Sample vote cast on-chain: [explorer](https://explorer.test.mezo.org/tx/0x57640d16ec5c7ae8b6d51dfcad3bf6d5e785bf28ba45f3c96df1c65a7398de40).
-- Removed unused Passport/RainbowKit/Wagmi packages from the runnable demo because they were not active in the UI and carried production audit findings. The active wallet path is direct injected-wallet EIP-1193 plus `viem` for deployment/RPC scripting.
-- `npm audit --omit=dev` is clean. Full `npm audit` still reports 2 low dev-only vulnerabilities through `solc -> tmp`; the available fix would force `solc@0.5.0`, which is not safe for this Solidity 0.8 contract.
+## Honest status
+
+- No wallet needed to explore: the public `#demo` route reads live on-chain state.
+- No mock/fixture data is shown as product proof. Faucet tokens are clearly labeled
+  as testnet bootstrap ERC-20s, not real MUSD/MEZO.
+- `npm audit --omit=dev` reports transitive advisories in the web3 wallet dependency
+  tree (elliptic, ws, axios via wagmi/viem/walletconnect). None are reachable in a
+  static client-side dApp; `audit fix --force` would downgrade and break the wallet stack.
 
 ## Source Docs
 
