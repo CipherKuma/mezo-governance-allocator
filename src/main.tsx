@@ -1,3 +1,6 @@
+import { Buffer } from "buffer";
+window.Buffer = Buffer;
+
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { Web3Provider } from "./providers/Web3Provider";
