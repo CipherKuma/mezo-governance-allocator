@@ -22,7 +22,12 @@ import { EpochPanel } from "../components/EpochPanel";
 import { LiveProofPanel } from "../components/LiveProofPanel";
 import { GasGate } from "../components/GasGate";
 import { WalletGate } from "../components/WalletGate";
-import { useHasGas } from "../hooks/useAllocatorContract";
+import {
+  useHasGas,
+  useTokenBalance,
+  useContractAddresses,
+  formatEther,
+} from "../hooks/useAllocatorContract";
 
 type Section =
   | "overview"
@@ -54,6 +59,8 @@ export function Dashboard({
   const { address } = useAccount();
   const { data: btcBalance } = useBalance({ address });
   const { hasGas } = useHasGas();
+  const { mockMezoAddress } = useContractAddresses();
+  const { data: mezoBalance } = useTokenBalance(mockMezoAddress, address);
 
   const shortAddr = address
     ? `${address.slice(0, 6)}...${address.slice(-4)}`
@@ -65,6 +72,12 @@ export function Dashboard({
         { maximumFractionDigits: 4 },
       )
     : "—";
+
+  const mezoFormatted = mezoBalance
+    ? Number(formatEther(mezoBalance)).toLocaleString(undefined, {
+        maximumFractionDigits: 0,
+      })
+    : "0";
 
   return (
     <div className="flex h-screen bg-[hsl(0,0%,5%)] text-white">
@@ -210,10 +223,15 @@ export function Dashboard({
           </h2>
           <div className="flex items-center gap-2">
             {!readOnly && (
-              <span className="flex items-center gap-1.5 rounded-full border border-btc/20 bg-btc/5 px-2.5 py-1 text-[11px] font-medium text-btc">
-                <Bitcoin size={12} />
-                {btcFormatted} BTC
-              </span>
+              <>
+                <span className="flex items-center gap-1.5 rounded-full border border-btc/20 bg-btc/5 px-2.5 py-1 text-[11px] font-medium text-btc">
+                  <Bitcoin size={12} />
+                  {btcFormatted} BTC
+                </span>
+                <span className="rounded-full border border-white/10 bg-white/[0.04] px-2.5 py-1 text-[11px] font-medium text-white/60">
+                  {mezoFormatted} MEZO
+                </span>
+              </>
             )}
             <span className="rounded-full border border-white/10 bg-white/[0.04] px-2.5 py-1 font-mono text-[11px] text-white/60">
               {readOnly ? "demo · read-only" : shortAddr}
