@@ -2,15 +2,17 @@ import { useReadContract, useWriteContract, useAccount } from "wagmi";
 import { parseEther, formatEther, type Address } from "viem";
 import { erc20Abi, musdAllocatorAbi } from "../lib/abis";
 
-const allocatorAddress = import.meta.env.VITE_MUSD_ALLOCATOR_ADDRESS as
-  | Address
-  | undefined;
-const mockMezoAddress = import.meta.env.VITE_MOCK_MEZO_ADDRESS as
-  | Address
-  | undefined;
-const mockMusdAddress = import.meta.env.VITE_MOCK_MUSD_ADDRESS as
-  | Address
-  | undefined;
+function cleanAddress(raw: unknown): Address | undefined {
+  if (typeof raw !== "string") return undefined;
+  const trimmed = raw.trim();
+  return /^0x[0-9a-fA-F]{40}$/.test(trimmed) ? (trimmed as Address) : undefined;
+}
+
+const allocatorAddress = cleanAddress(
+  import.meta.env.VITE_MUSD_ALLOCATOR_ADDRESS,
+);
+const mockMezoAddress = cleanAddress(import.meta.env.VITE_MOCK_MEZO_ADDRESS);
+const mockMusdAddress = cleanAddress(import.meta.env.VITE_MOCK_MUSD_ADDRESS);
 
 export function useIsLiveMode() {
   return Boolean(allocatorAddress && mockMezoAddress && mockMusdAddress);

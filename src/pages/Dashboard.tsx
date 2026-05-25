@@ -1,6 +1,6 @@
-import { useState, useMemo } from "react";
+import { useState } from "react";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
-import { useAccount } from "wagmi";
+import { useAccount, useBalance } from "wagmi";
 import {
   Landmark,
   Lock,
@@ -9,6 +9,7 @@ import {
   Droplets,
   RadioTower,
   LogOut,
+  Bitcoin,
 } from "lucide-react";
 import { TreasuryPanel } from "../components/TreasuryPanel";
 import { LockPanel } from "../components/LockPanel";
@@ -29,10 +30,18 @@ const navItems: { id: Section; label: string; icon: typeof Landmark }[] = [
 export function Dashboard() {
   const [active, setActive] = useState<Section>("treasury");
   const { address } = useAccount();
+  const { data: btcBalance } = useBalance({ address });
 
   const shortAddr = address
     ? `${address.slice(0, 6)}...${address.slice(-4)}`
     : "";
+
+  const btcFormatted = btcBalance
+    ? (Number(btcBalance.value) / 10 ** btcBalance.decimals).toLocaleString(
+        undefined,
+        { maximumFractionDigits: 4 },
+      )
+    : "—";
 
   return (
     <div className="flex h-screen bg-[hsl(0,0%,5%)] text-white">
@@ -89,7 +98,14 @@ export function Dashboard() {
           <h2 className="text-lg font-semibold capitalize">
             {active === "lock" ? "Lock MEZO" : active}
           </h2>
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2">
+            <span className="flex items-center gap-1.5 rounded-full border border-btc/20 bg-btc/5 px-2.5 py-1 text-[11px] font-medium text-btc">
+              <Bitcoin size={12} />
+              {btcFormatted} BTC
+            </span>
+            <span className="rounded-full border border-white/10 bg-white/[0.04] px-2.5 py-1 font-mono text-[11px] text-white/60">
+              {shortAddr}
+            </span>
             <span className="rounded-full border border-musd/20 bg-musd/5 px-2.5 py-1 text-[11px] font-medium text-musd">
               Chain 31611
             </span>
