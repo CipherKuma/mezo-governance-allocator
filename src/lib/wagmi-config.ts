@@ -1,4 +1,5 @@
 import { http, createConfig, type Config } from "wagmi";
+import { injected } from "wagmi/connectors";
 import { defineChain } from "viem";
 
 export const mezoTestnet = defineChain({
@@ -26,9 +27,26 @@ export const mezoTestnet = defineChain({
 // build. Until Passport ships a wagmi-3-compatible release, we connect through
 // wagmi's built-in EIP-6963 multi-injected discovery (which surfaces Mezo-
 // compatible wallets like OKX/Xverse/MetaMask). See TRUTH_AUDIT.md.
+//
+// OKX-only: we target OKX Wallet as the sole connector. Disable
+// multiInjectedProviderDiscovery so MetaMask/etc don't appear.
 export const wagmiConfig: Config = createConfig({
   chains: [mezoTestnet],
-  multiInjectedProviderDiscovery: true,
+  connectors: [
+    injected({
+      target: {
+        id: "com.okex.wallet",
+        name: "OKX Wallet",
+        provider() {
+          if (typeof window !== "undefined") {
+            return (window as unknown as Record<string, unknown>)
+              .okxwallet as never;
+          }
+        },
+      },
+    }),
+  ],
+  multiInjectedProviderDiscovery: false,
   transports: {
     [mezoTestnet.id]: http("https://rpc.test.mezo.org"),
   },
