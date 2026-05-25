@@ -10,11 +10,13 @@ import {
   formatEther,
 } from "../hooks/useAllocatorContract";
 import { GAUGES, CATEGORY_COLORS } from "../lib/gauges";
+import { RegisterVoterCard } from "./RegisterVoterCard";
 
 export function VotePanel() {
   const { address, isConnected } = useAccount();
-  const { data: votingPower } = useVotingPower(address);
-  const { data: isVerified } = useIsVerifiedVoter(address);
+  const { data: votingPower, refetch: refetchPower } = useVotingPower(address);
+  const { data: isVerified, refetch: refetchVerified } =
+    useIsVerifiedVoter(address);
   const { data: treasury } = useTreasuryBalance();
   const { castVote, isPending } = useWriteAllocator();
   const { hasGas } = useHasGas();
@@ -60,6 +62,13 @@ export function VotePanel() {
 
   return (
     <div className="space-y-5">
+      {isConnected && address && !isVerified && (
+        <RegisterVoterCard
+          address={address}
+          onRegistered={() => refetchVerified()}
+        />
+      )}
+
       <div className="rounded-xl border border-white/10 bg-graphite/80 p-4 shadow-glass">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2 text-white/50">
