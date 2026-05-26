@@ -3,6 +3,7 @@ import {
   AbsoluteFill,
   Audio,
   Img,
+  OffthreadVideo,
   Sequence,
   interpolate,
   spring,
@@ -193,79 +194,45 @@ const TitleScene = ({ scene }: { scene: Scene }) => {
   );
 };
 
-const DemoScene = ({ scene, slots }: { scene: Scene; slots: DemoSlot[] }) => {
+const DemoScene = ({ scene }: { scene: Scene; slots: DemoSlot[] }) => {
   const frame = useCurrentFrame();
   return (
-    <Shell scene={scene}>
-      <div style={{ position: "absolute", left: 96, right: 96, top: 128 }}>
-        <h2
-          style={{ fontFamily: "Arial, sans-serif", fontSize: 58, margin: 0 }}
-        >
-          {scene.title}
-        </h2>
-        <p
+    <AbsoluteFill style={{ background: colors.bg }}>
+      <OffthreadVideo
+        src={staticFile("demo.mp4")}
+        style={{
+          width: "100%",
+          height: "100%",
+          objectFit: "contain",
+        }}
+      />
+      <div
+        style={{
+          position: "absolute",
+          bottom: 0,
+          left: 0,
+          right: 0,
+          height: 80,
+          background: "linear-gradient(to top, rgba(5,5,5,0.9), transparent)",
+          display: "flex",
+          alignItems: "flex-end",
+          padding: "0 48px 18px",
+          fontFamily: "Arial, sans-serif",
+        }}
+      >
+        <span
           style={{
-            color: colors.muted,
-            fontFamily: "Arial, sans-serif",
-            fontSize: 28,
+            fontSize: 18,
+            color: colors.musd,
+            opacity: fade(frame, 0, 24),
           }}
         >
-          {scene.kicker}
-        </p>
-        <div
-          style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 22 }}
-        >
-          {slots.map((slot, index) => (
-            <RecordingSlot
-              key={slot.id}
-              slot={slot}
-              active={Math.floor(frame / 180) === index}
-            />
-          ))}
-        </div>
+          Live demo · Mezo Testnet (chain 31611)
+        </span>
       </div>
-    </Shell>
+    </AbsoluteFill>
   );
 };
-
-const RecordingSlot = ({
-  slot,
-  active,
-}: {
-  slot: DemoSlot;
-  active: boolean;
-}) => (
-  <div
-    style={{
-      minHeight: 324,
-      border: `2px solid ${active ? colors.musd : colors.line}`,
-      borderRadius: 8,
-      background: active ? "rgba(103,232,167,0.08)" : "rgba(255,255,255,0.04)",
-      padding: 28,
-      fontFamily: "Arial, sans-serif",
-    }}
-  >
-    <div
-      style={{
-        display: "flex",
-        justifyContent: "space-between",
-        color: colors.muted,
-      }}
-    >
-      <span>
-        {slot.start} - {slot.duration}
-      </span>
-      <span>Recording placeholder</span>
-    </div>
-    <h3 style={{ fontSize: 34, margin: "22px 0 12px" }}>{slot.title}</h3>
-    <p style={{ color: colors.text, fontSize: 22, lineHeight: 1.32 }}>
-      {slot.operatorAction}
-    </p>
-    <code style={{ color: colors.musd, fontSize: 20 }}>
-      {slot.recordingFile}
-    </code>
-  </div>
-);
 
 const ProofScene = ({ scene, chainId }: { scene: Scene; chainId: string }) => (
   <Shell scene={scene}>
