@@ -1,0 +1,39 @@
+{
+  "d1_database_id": "3a22649e-4e81-4bff-88d5-274dfd7ecfae",
+  "d1_database_name": "mezo-gov-db",
+  "d1_region": "APAC",
+  "d1_tables": [
+    "profiles",
+    "gauges",
+    "gauge_applications",
+    "epochs",
+    "epoch_results",
+    "comments"
+  ],
+  "pages_project": "mezo-gov-allocator",
+  "pages_url": "https://mezo-gov-allocator.pages.dev",
+  "pages_deploy_url": "https://2bd5e5a4.mezo-gov-allocator.pages.dev",
+  "r2_media_bucket": "borealis-media",
+  "r2_media_public_base_url": "https://pub-0c9c1014dad548dcbe06b383bf5246aa.r2.dev",
+  "pitch_demo_video_url": "https://pub-0c9c1014dad548dcbe06b383bf5246aa.r2.dev/demo-video.mp4",
+  "pitch_demo_video_object": "demo-video.mp4",
+  "pitch_demo_video_size_bytes": 24376824,
+  "pitch_demo_video_duration_seconds": 180.053333,
+  "api_endpoints": [
+    "GET /api/gauges",
+    "POST /api/gauges",
+    "GET /api/gauges/:id",
+    "GET /api/gauges/:id/comments",
+    "POST /api/gauges/:id/comments",
+    "GET /api/epochs",
+    "GET /api/epochs/current",
+    "GET /api/epochs/:number",
+    "POST /api/epochs/:number/settle",
+    "GET /api/profiles/:wallet",
+    "PUT /api/profiles/:wallet",
+    "GET /api/leaderboard/voters",
+    "GET /api/leaderboard/gauges"
+  ],
+  "provisioned_at": "2026-05-25T05:12:00Z",
+  "deployed_at": "2026-05-25T05:16:00Z"
+}

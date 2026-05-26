@@ -45,3 +45,13 @@ These exist on-chain but are NOT the current product contract. Kept for an hones
 
 - URL: https://mezo-governance-allocator.vercel.app
 - Scope: rax-tech
+
+## Cloudflare R2 (Pitch Media)
+
+- Bucket: `borealis-media`
+- Public base URL: https://pub-0c9c1014dad548dcbe06b383bf5246aa.r2.dev
+- Demo video URL: https://pub-0c9c1014dad548dcbe06b383bf5246aa.r2.dev/demo-video.mp4
+- Object key: `demo-video.mp4`
+- Size: 24,376,824 bytes
+- Duration: 180.053333 seconds
+- Notes: This is the current placeholder-recording pitch video. Replace the same R2 object after final app demo recordings are inserted.

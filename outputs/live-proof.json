@@ -1,0 +1,97 @@
+{
+  "verifiedAt": "2026-05-25T03:53:44.930Z",
+  "verified": true,
+  "chainId": 31611,
+  "rpcUrl": "https://rpc.test.mezo.org",
+  "explorer": "https://explorer.test.mezo.org",
+  "canonicalDeployment": {
+    "allocator": "0x1cdba6eec37d77d8994296a29fdc2c230cc0596a",
+    "mockMezo": "0x08b9caca9c9885d86d97d6928a3f44903a030778",
+    "mockMusd": "0xd6f43325a1103a16fccf268e28da053daadb755a",
+    "deployer": "0x86CA136dc8B2Ac6B10143Ed23AC361FCBbd6bFCa",
+    "deployedAt": "2026-05-24T23:55:03.754Z"
+  },
+  "reads": {
+    "treasuryBalance": "50000000000000000000000",
+    "currentEpoch": "1",
+    "epochTimeRemaining": "0",
+    "epochDuration": "300",
+    "gaugeCount": "4"
+  },
+  "gauges": [
+    {
+      "id": "1",
+      "label": "BTC/MUSD Pool",
+      "recipient": "0x86CA136dc8B2Ac6B10143Ed23AC361FCBbd6bFCa",
+      "totalVotes": "370722990117521367521",
+      "exists": true
+    },
+    {
+      "id": "2",
+      "label": "MUSD Savings",
+      "recipient": "0x86CA136dc8B2Ac6B10143Ed23AC361FCBbd6bFCa",
+      "totalVotes": "247148660078347578347",
+      "exists": true
+    },
+    {
+      "id": "3",
+      "label": "Validator Yield",
+      "recipient": "0x86CA136dc8B2Ac6B10143Ed23AC361FCBbd6bFCa",
+      "totalVotes": "185361495058760683760",
+      "exists": true
+    },
+    {
+      "id": "4",
+      "label": "Ecosystem Grants",
+      "recipient": "0x86CA136dc8B2Ac6B10143Ed23AC361FCBbd6bFCa",
+      "totalVotes": "432510155137108262107",
+      "exists": true
+    }
+  ],
+  "voteTx": {
+    "hash": "0xabf4bd58b6b5a2fd39b932f9b2e0aa12e47550612c1457cdfe4baf672d919b16",
+    "status": "success",
+    "blockNumber": "13259078",
+    "from": "0x86ca136dc8b2ac6b10143ed23ac361fcbbd6bfca",
+    "to": "0x1cdba6eec37d77d8994296a29fdc2c230cc0596a",
+    "logs": 1,
+    "explorer": "https://explorer.test.mezo.org/tx/0xabf4bd58b6b5a2fd39b932f9b2e0aa12e47550612c1457cdfe4baf672d919b16"
+  },
+  "checks": [
+    {
+      "name": "chain_id",
+      "ok": true,
+      "detail": "chainId=31611"
+    },
+    {
+      "name": "code_allocator",
+      "ok": true,
+      "detail": "0x1cdba6eec37d77d8994296a29fdc2c230cc0596a has 5757 bytes"
+    },
+    {
+      "name": "code_mockMezo",
+      "ok": true,
+      "detail": "0x08b9caca9c9885d86d97d6928a3f44903a030778 has 1860 bytes"
+    },
+    {
+      "name": "code_mockMusd",
+      "ok": true,
+      "detail": "0xd6f43325a1103a16fccf268e28da053daadb755a has 1864 bytes"
+    },
+    {
+      "name": "allocator_reads",
+      "ok": true,
+      "detail": "{\"treasuryBalance\":\"50000000000000000000000\",\"currentEpoch\":\"1\",\"epochTimeRemaining\":\"0\",\"epochDuration\":\"300\",\"gaugeCount\":\"4\"}"
+    },
+    {
+      "name": "gauges",
+      "ok": true,
+      "detail": "4 gauges registered"
+    },
+    {
+      "name": "vote_tx",
+      "ok": true,
+      "detail": "block 13259078, 1 logs"
+    }
+  ]
+}

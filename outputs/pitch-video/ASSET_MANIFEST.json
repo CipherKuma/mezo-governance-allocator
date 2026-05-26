@@ -1,0 +1,63 @@
+{
+  "status": "placeholder-ready",
+  "lastUpdated": "2026-05-25",
+  "composition": "BorealisPitch",
+  "voiceover": {
+    "status": "not-recorded",
+    "targetPath": "public/assets/audio/borealis-pitch-voiceover.wav",
+    "script": "outputs/pitch-video/PITCH_SCRIPT.md"
+  },
+  "aiVideoInserts": [
+    {
+      "id": "ai-01-cold-open-liquidity",
+      "status": "integrated",
+      "source": "/Users/gabrielantonyxaviour/Downloads/ai-01-cold-open-liquidity.mp4",
+      "targetPath": "public/assets/ai-video/ai-01-cold-open-liquidity.mp4",
+      "timeline": "00:00-00:04",
+      "purpose": "Cinematic hook only; not product proof."
+    },
+    {
+      "id": "ai-02-demo-transition-gauges",
+      "status": "integrated",
+      "source": "/Users/gabrielantonyxaviour/Downloads/ai-02-demo-transition-gauges.mp4",
+      "targetPath": "public/assets/ai-video/ai-02-demo-transition-gauges.mp4",
+      "timeline": "00:42-00:46",
+      "purpose": "Transition into the real app demo placeholders."
+    },
+    {
+      "id": "ai-03-final-ecosystem-sting",
+      "status": "integrated",
+      "source": "/Users/gabrielantonyxaviour/Downloads/ai-03-final-ecosystem-sting.mp4",
+      "targetPath": "public/assets/ai-video/ai-03-final-ecosystem-sting.mp4",
+      "timeline": "02:53-03:00",
+      "purpose": "Closing ecosystem texture; final URL and claim remain Remotion-rendered."
+    }
+  ],
+  "recordings": [
+    {
+      "id": "01-live-demo-route",
+      "status": "placeholder",
+      "targetPath": "public/assets/recordings/01-live-demo-route.mp4"
+    },
+    {
+      "id": "02-passport-chain-ready",
+      "status": "placeholder",
+      "targetPath": "public/assets/recordings/02-passport-chain-ready.mp4"
+    },
+    {
+      "id": "03-musd-allocation-workbench",
+      "status": "placeholder",
+      "targetPath": "public/assets/recordings/03-musd-allocation-workbench.mp4"
+    },
+    {
+      "id": "04-live-proof-and-explorer",
+      "status": "placeholder",
+      "targetPath": "public/assets/recordings/04-live-proof-and-explorer.mp4"
+    }
+  ],
+  "researchInputs": [
+    "outputs/research/mezo-pitch-video/how-to-pitch-transcript.raw.md",
+    "outputs/research/mezo-pitch-video/youtube-XwxdG6B59Xk.en.vtt",
+    "/Users/gabrielantonyxaviour/Documents/agents/docs/research/motion-video-council/2026-05-20T00-07-34Z/FINAL_REPORT.md"
+  ]
+}

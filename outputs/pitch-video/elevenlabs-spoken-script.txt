@@ -1,0 +1,41 @@
+Borealis routes MUSD to the builders Mezo wants to grow.
+
+It is Mezo's capital operations layer: governance signals come in, operators route MUSD across gauges, and every allocation is verified onchain.
+
+A DAO can help a community decide, but most tools stop at proposals and votes. Capital work starts after that.
+
+Projects ask for support. Token holders signal priorities. Operators decide where MUSD moves and how the result is verified.
+
+That is the problem Borealis solves.
+
+Borealis is the operations layer after governance.
+
+Projects apply for gauges. MEZO-powered signals rank them. Operators preview MUSD allocation impact before execution. Every final action is tied back to Mezo testnet proof.
+
+We start in the capital router.
+
+This is not proposal creation. It is an allocation cycle. Choose the cycle, review the gauges, check the MUSD budget, and confirm Mezo testnet state.
+
+When the operator is ready to execute, they connect with Mezo Passport. Borealis checks wallet readiness, Mezo testnet, and BTC gas before enabling a transaction. Without that, the app stays read-only.
+
+Now the operator builds the capital route.
+
+They compare gauges for liquidity depth, MUSD velocity, validator incentives, and ecosystem grants. Then they move MUSD between those gauges and see the capital impact update immediately, before committing anything onchain.
+
+Once the allocation looks right, Borealis turns the plan into a verifiable action.
+
+The proof panel shows chain 31611, the deployed contract, the vote receipt, the allocation event, and the explorer link. The operator can move from decision to execution to verification without leaving the product flow.
+
+This is the difference from a regular DAO.
+
+A DAO records what people voted for. Borealis records how Mezo capital was routed because of that signal.
+
+Every allocation has a visible trail: the network, the state change, the vote and weight receipts, and the explorer proof. The claim is not "trust our dashboard." The claim is "follow the allocation trail."
+
+The business path is recurring infrastructure for Mezo incentives. The first users are ecosystem operators, grant reviewers, protocol teams, and builders applying for incentives. The long-term path is a shared allocation layer that supports liquidity campaigns, builder grants, validator incentives, and ecosystem budgets.
+
+We built Borealis for this hackathon as a working Mezo-native product: frontend, contracts, deployment scripts, proof surfaces, and a public demo path. The focus is accountable capital routing for Bitcoin-backed finance.
+
+We are asking for the MEZO Utilization prize, technical feedback, and a real allocation pilot.
+
+Borealis is not Mezo's DAO. It is the MUSD capital router that makes Mezo governance measurable and verifiable.

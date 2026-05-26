@@ -1,0 +1,74 @@
+{
+  "title": "Borealis - MEZO-powered MUSD Capital Router",
+  "date": "2026-05-25",
+  "durationSeconds": 180,
+  "fps": 24,
+  "format": "16:9",
+  "composition": "BorealisPitch",
+  "beats": [
+    {
+      "time": "00:00-00:15",
+      "beat": "Hook",
+      "purpose": "Present Borealis as the MEZO Utilization product, not a production note.",
+      "visual": "AI cold-open liquidity shot for 4 seconds, then pitch-facing Borealis capital-router copy and allocator motion."
+    },
+    {
+      "time": "00:15-00:32",
+      "beat": "Tension",
+      "purpose": "Explain why Mezo capital needs transparent allocation infrastructure.",
+      "visual": "Capital-routing console shows MEZO, MUSD, BTC, and proof as disconnected jobs."
+    },
+    {
+      "time": "00:32-00:45",
+      "beat": "Promise",
+      "purpose": "Define the product as governance becoming capital operations.",
+      "visual": "Capital-routing console and AI gauge transition bridge into the demo."
+    },
+    {
+      "time": "00:45-01:45",
+      "beat": "Demo",
+      "purpose": "Walk through the product as an operator workflow: enter the router, allocate MUSD, execute, and verify.",
+      "recordings": [
+        "public/assets/recordings/01-live-demo-route.mp4",
+        "public/assets/recordings/02-passport-chain-ready.mp4",
+        "public/assets/recordings/03-musd-allocation-workbench.mp4",
+        "public/assets/recordings/04-live-proof-and-explorer.mp4"
+      ]
+    },
+    {
+      "time": "01:45-02:15",
+      "beat": "Proof",
+      "purpose": "Position proof as a product feature, not a screenshot claim.",
+      "visual": "Network, AllocationUpdated event, receipts, and explorer proof animate as metric cards."
+    },
+    {
+      "time": "02:15-02:47",
+      "beat": "Business viability and team",
+      "purpose": "Explain why the primitive matters after the hackathon.",
+      "visual": "MEZO and MUSD get repeatable ecosystem jobs; ask slide points to a pilot path."
+    },
+    {
+      "time": "02:47-03:00",
+      "beat": "Ask and sting",
+      "purpose": "Ask for MEZO Utilization prize and technical continuation path.",
+      "visual": "Remotion ask slide, then AI ecosystem sting with Remotion-rendered Borealis lockup and public URL."
+    }
+  ],
+  "aiVideoInserts": [
+    {
+      "time": "00:00-00:04",
+      "file": "public/assets/ai-video/ai-01-cold-open-liquidity.mp4",
+      "role": "Banger opening texture, not product evidence."
+    },
+    {
+      "time": "00:42-00:46",
+      "file": "public/assets/ai-video/ai-02-demo-transition-gauges.mp4",
+      "role": "Capital-routing transition before the real app recording area."
+    },
+    {
+      "time": "02:53-03:00",
+      "file": "public/assets/ai-video/ai-03-final-ecosystem-sting.mp4",
+      "role": "Closing ecosystem texture behind the final Remotion text."
+    }
+  ]
+}

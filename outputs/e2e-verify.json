@@ -1,0 +1,129 @@
+{
+  "verifiedAt": "2026-05-25T04:24:55.207Z",
+  "network": "mezo-testnet-31611",
+  "tester": "0x86CA136dc8B2Ac6B10143Ed23AC361FCBbd6bFCa",
+  "testInstance": {
+    "allocator": "0x63712418981030620da2a88238b28cecc6ffc2f1",
+    "mockMezo": "0x0b0ec11f49b1b961a6a073970dea14cc64cffa17",
+    "mockMusd": "0x93c83f2a966bee361d862ef2ba98787ff0aa8da3"
+  },
+  "note": "Throwaway instance for write-path proof. Demo contract 0x1cdba6… untouched.",
+  "allPassed": true,
+  "checks": [
+    {
+      "name": "deploy stack",
+      "ok": true,
+      "detail": "allocator 0x63712418981030620da2a88238b28cecc6ffc2f1"
+    },
+    {
+      "name": "faucet MEZO",
+      "ok": true,
+      "detail": "tx 0x088726e8bc7b3f8cc965418ea2853ae73caaf81a5ed7a4495d957120260f65f7"
+    },
+    {
+      "name": "faucet MUSD",
+      "ok": true,
+      "detail": "tx 0x1230f7808594e3b83971040dae680d1d2dfd69e2d48ad8f3ba5e6491079870fb"
+    },
+    {
+      "name": "MEZO balance minted",
+      "ok": true,
+      "detail": "100000 MEZO"
+    },
+    {
+      "name": "depositTreasury",
+      "ok": true,
+      "detail": "tx 0xc0296e55227c915d59c881cedf952e6c6c8bb0590f6616c9cc961aa221e27b63"
+    },
+    {
+      "name": "treasuryBalance == 50000",
+      "ok": true,
+      "detail": "50000 MUSD"
+    },
+    {
+      "name": "registerGauge 1",
+      "ok": true,
+      "detail": "BTC/MUSD Pool tx 0xb61dd8252ae6002aede0205aad7472d780a0d8614341c63987bf3a904842074e"
+    },
+    {
+      "name": "registerGauge 2",
+      "ok": true,
+      "detail": "MUSD Savings tx 0x89964fbaa3e180ab983b3f9db46cc3530f6056eb16106f86df4fc731a336c482"
+    },
+    {
+      "name": "registerGauge 3",
+      "ok": true,
+      "detail": "Validator Yield tx 0xb2b83aa7403df4d6e07cbb95fa5acfb8aec5f5190595a243c37918cbef90f4ff"
+    },
+    {
+      "name": "registerGauge 4",
+      "ok": true,
+      "detail": "Ecosystem Grants tx 0x1bd50e8afcf6693570427113077c006c608ded89069b26bedcba33f75aa27712"
+    },
+    {
+      "name": "4 gauges registered",
+      "ok": true,
+      "detail": "gaugeCount=4"
+    },
+    {
+      "name": "registerVoter",
+      "ok": true,
+      "detail": "tx 0xc6699072fb61de37488033fbac82a60858ca4b71cf10fe3783f6d21aac574679"
+    },
+    {
+      "name": "voter verified",
+      "ok": true,
+      "detail": "verifiedVoters=true"
+    },
+    {
+      "name": "lockMezo",
+      "ok": true,
+      "detail": "tx 0xfb3711c3abe654d46dff0f31ac433329299d50a4d29c2d1cbd80beb82f14bb10"
+    },
+    {
+      "name": "lock amount == 10000",
+      "ok": true,
+      "detail": "10000 MEZO locked"
+    },
+    {
+      "name": "voting power > 0",
+      "ok": true,
+      "detail": "power=1236.263736263736263736"
+    },
+    {
+      "name": "vote cast",
+      "ok": true,
+      "detail": "tx 0xe33c9574b28a194cd80db18054f8321b96077a54cee9e5adf116b6e690522b60, 1 log(s)"
+    },
+    {
+      "name": "gauge 1 has votes",
+      "ok": true,
+      "detail": "totalVotes=370.87895394536019536"
+    },
+    {
+      "name": "settleEpoch",
+      "ok": true,
+      "detail": "tx 0xdd6e3764ee14bb1b2a58eb8207e8c1d59da8bcdc386af21a7d173e75fedc736a, 5 log(s)"
+    },
+    {
+      "name": "epoch advanced to 2",
+      "ok": true,
+      "detail": "currentEpoch=2"
+    },
+    {
+      "name": "treasury distributed",
+      "ok": true,
+      "detail": "0.000000000000000002 MUSD left"
+    },
+    {
+      "name": "recipient received MUSD",
+      "ok": true,
+      "detail": "+49999.999999999999999998 MUSD"
+    },
+    {
+      "name": "unlock guard (LockNotExpired)",
+      "ok": true,
+      "detail": "unlock reverts before expiry"
+    }
+  ]
+}
